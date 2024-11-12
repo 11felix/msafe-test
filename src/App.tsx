@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
-import Stake from "./modules/Stake";
+import Stake from "./modules/stake";
 
 const App: React.FC = () => {
   return (

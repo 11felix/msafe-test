@@ -7,6 +7,7 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
         noto: ["Noto Sans", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+        // poppinsmedium: ["PoppinsMedium", "sans-serif"]
       },
     },
   },

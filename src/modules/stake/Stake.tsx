@@ -1,8 +1,10 @@
 import React from "react";
 import InputContainer from "../../components/InputContainer";
-import stSuiLogo from "../assets/icons/stSuiLogo.svg";
-import suiLogo from "../assets/icons/suiLogo.svg";
+import stSuiLogo from "../../assets/icons/stSuiLogo.svg";
+import suiLogo from "../../assets/icons/suiLogo.svg";
 import CommonButton from "../../components/CommonButton";
+import FAQ from "./components/faq";
+import Opportunities from "./components/stSuiOpportunities";
 
 const Stake: React.FC = () => {
   //   const [isOpen, setIsOpen] = useState(false);
@@ -58,6 +60,8 @@ const Stake: React.FC = () => {
           </div>
         </div>
       </div>
+      <Opportunities />
+      <FAQ />
     </div>
   );
 };
