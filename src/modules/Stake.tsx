@@ -18,7 +18,7 @@ const Stake: React.FC = () => {
   return (
     <div className="bg-[#E9EFF4] pt-5 pb-10 w-full h-full">
       <div className="w-[26.30vw] h-fit p-[2.08vw] bg-white rounded-[1.45vw] flex flex-col mx-auto">
-        <div className="mb-2">
+        <div className="mb-[0.93vw]">
           <InputContainer
             title="Stake SUI"
             balance={10000.5}
@@ -27,7 +27,7 @@ const Stake: React.FC = () => {
             isMaxBtn={true}
           />
         </div>
-        <div className="mb-3">
+        <div className="mb-[0.93vw]">
           <InputContainer
             title="Receive"
             balance={10000.5}
@@ -36,8 +36,8 @@ const Stake: React.FC = () => {
             isMaxBtn={false}
           />
         </div>
-        <CommonButton />
-        <div className="mt-3">
+        <CommonButton text="Stake 2 SUI" />
+        <div className="mt-[1.97vw]">
           <div className="flex justify-between items-center">
             <p className="text-black text-[1.04vw] font-inter">Exchange rate</p>
             <p className="text-black text-[1.04vw] font-inter font-bold">

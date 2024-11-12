@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-const CommonButton: React.FC = () => {
+interface CommonButtonProps {
+  text: string;
+}
+
+const CommonButton: React.FC<CommonButtonProps> = ({ text }) => {
   const [walletConnected, setWalletConnected] = useState(false);
 
   useEffect(() => {
@@ -20,14 +24,14 @@ const CommonButton: React.FC = () => {
               className="h-[0.917vw] w-[1.12vw] mr-2 text-white"
             />
           )}
-          Stake 2 SUI
+          {text}
         </button>
       ) : (
         <button
           // onClick={onConnectWallet}
           className="text-center bg-black py-[1vw] rounded-[1.19vw] text-white text-[1.1vw] font-poppins font-medium"
         >
-          Stake 2 SUI
+          {text}
         </button>
       )}
     </>

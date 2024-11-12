@@ -10,5 +10,22 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".no-spinner": {
+          "-moz-appearance": "textfield",
+          "-webkit-appearance": "none",
+        },
+        ".no-spinner::-webkit-inner-spin-button": {
+          "-webkit-appearance": "none",
+          margin: "0",
+        },
+        ".no-spinner::-webkit-outer-spin-button": {
+          "-webkit-appearance": "none",
+          margin: "0",
+        },
+      });
+    },
+  ],
 };
