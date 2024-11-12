@@ -1,8 +1,8 @@
 import React from "react";
-import InputContainer from "../components/InputContainer";
+import InputContainer from "../../components/InputContainer";
 import stSuiLogo from "../assets/icons/stSuiLogo.svg";
 import suiLogo from "../assets/icons/suiLogo.svg";
-import CommonButton from "../components/CommonButton";
+import CommonButton from "../../components/CommonButton";
 
 const Stake: React.FC = () => {
   //   const [isOpen, setIsOpen] = useState(false);
