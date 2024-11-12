@@ -1,9 +1,14 @@
-// App.tsx
 import React, { useState } from "react";
-import Stake from "./Stake";
-import Unstake from "./Unstake";
+import InputContainer from "../../components/InputContainer";
+import stSuiLogo from "../../assets/icons/stSuiLogo.svg";
+import suiLogo from "../../assets/icons/suiLogo.svg";
+import CommonButton from "../../components/CommonButton";
+import FAQ from "./components/faq";
+import Opportunities from "./components/stSuiOpportunities";
+import Unstake from "./components/Unstake";
+import Stake from "./components/Stake";
 
-const Portfolio: React.FC = () => {
+const StakeUnstake: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState("Stake");
   const tabs = ["Stake", "Unstake"];
 
@@ -15,7 +20,7 @@ const Portfolio: React.FC = () => {
   return (
     <>
       <div className="w-full h-full bg-[#E9EFF4] flex flex-col justify-center items-center">
-        <div className="flex space-x-[5.1vw] justify-center">
+        <div className="flex space-x-[5.1vw] justify-center pt-[2.91vw]">
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -34,8 +39,10 @@ const Portfolio: React.FC = () => {
           {selectedTab === "Stake" ? <Stake /> : <Unstake />}
         </div>
       </div>
+      <Opportunities />
+      <FAQ />
     </>
   );
 };
 
-export default Portfolio;
+export default StakeUnstake;

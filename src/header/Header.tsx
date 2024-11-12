@@ -16,8 +16,8 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="flex items-center justify-between px-3 md:px-[112px] py-4 md:py-[35px] bg-[#E9EFF4] text-black relative">
-      <div className="flex items-center">
+    <header className="flex items-center justify-between px-3 md:px-[5.83vw] py-4 md:py-[1.82vw] bg-[#E9EFF4] text-black relative">
+      <div className="flex items-center md:ml-[1.45vw]">
         <img
           src={stSuiLogo}
           alt="Logo"

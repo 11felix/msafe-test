@@ -1,9 +1,9 @@
 import React from "react";
-import InputContainer from "../components/InputContainer";
-import stSuiLogo from "../assets/icons/stSuiLogo.svg";
-import suiLogo from "../assets/icons/suiLogo.svg";
-import CommonButton from "../components/CommonButton";
-import StatsComponent from "../components/StatsComponent";
+import InputContainer from "../../../components/InputContainer";
+import stSuiLogo from "../../../assets/icons/stSuiLogo.svg";
+import suiLogo from "../../../assets/icons/suiLogo.svg";
+import CommonButton from "../../../components/CommonButton";
+import Stats from "./Stats";
 
 const Stake: React.FC = () => {
   //   const [isOpen, setIsOpen] = useState(false);
@@ -60,7 +60,7 @@ const Stake: React.FC = () => {
         </div>
       </div>
       <div className="absolute right-[-7vw] bottom-0">
-        <StatsComponent />
+        <Stats />
       </div>
     </div>
   );
