@@ -1,3 +1,3 @@
-import Stake from "./Stake";
+import StakeUnstake from "./StakeUnstake";
 
-export default Stake;
+export default StakeUnstake;
