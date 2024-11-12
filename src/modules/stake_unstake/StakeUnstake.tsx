@@ -35,7 +35,7 @@ const StakeUnstake: React.FC = () => {
             </button>
           ))}
         </div>
-        <div className="">
+        <div className="pb-[3.5vw]">
           {selectedTab === "Stake" ? <Stake /> : <Unstake />}
         </div>
       </div>
