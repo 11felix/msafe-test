@@ -3,6 +3,7 @@ import InputContainer from "../components/InputContainer";
 import stSuiLogo from "../assets/icons/stSuiLogo.svg";
 import suiLogo from "../assets/icons/suiLogo.svg";
 import CommonButton from "../components/CommonButton";
+import StatsComponent from "../components/StatsComponent";
 
 const Stake: React.FC = () => {
   //   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +17,7 @@ const Stake: React.FC = () => {
   //   };
 
   return (
-    <div className="bg-[#E9EFF4] pt-5 pb-10 w-full h-full">
+    <div className="flex relative pt-[1.66vw]">
       <div className="w-[26.30vw] h-fit p-[2.08vw] bg-white rounded-[1.45vw] flex flex-col mx-auto">
         <div className="mb-[0.93vw]">
           <InputContainer
@@ -36,7 +37,7 @@ const Stake: React.FC = () => {
             isMaxBtn={false}
           />
         </div>
-        <CommonButton text="Stake 2 SUI" />
+        <CommonButton text="Stake 2 SUI" isWalletConnected={true} />
         <div className="mt-[1.97vw]">
           <div className="flex justify-between items-center">
             <p className="text-black text-[1.04vw] font-inter">Exchange rate</p>
@@ -57,6 +58,9 @@ const Stake: React.FC = () => {
             </p>
           </div>
         </div>
+      </div>
+      <div className="absolute right-[-7vw] bottom-0">
+        <StatsComponent />
       </div>
     </div>
   );

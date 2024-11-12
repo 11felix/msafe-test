@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
+import walletIcon from "../assets/icons/whiteWallet.svg";
 
 interface CommonButtonProps {
   text: string;
+  isWalletConnected: boolean;
 }
 
-const CommonButton: React.FC<CommonButtonProps> = ({ text }) => {
+const CommonButton: React.FC<CommonButtonProps> = ({
+  text,
+  isWalletConnected,
+}) => {
   const [walletConnected, setWalletConnected] = useState(false);
 
   useEffect(() => {
-    setWalletConnected(true);
+    setWalletConnected(isWalletConnected);
   }, []);
 
   return (
@@ -16,14 +21,13 @@ const CommonButton: React.FC<CommonButtonProps> = ({ text }) => {
       {!walletConnected ? (
         <button
           // onClick={onConnectWallet}
-          className="flex items-center text-center bg-black py-[1vw] rounded-[1.19vw] text-white text-[1.1vw] font-poppins font-medium"
+          className="flex justify-center items-center text-center bg-black py-[1vw] rounded-[1.19vw] text-white text-[1.1vw] font-poppins font-medium"
         >
-          {!walletConnected && (
-            <img
-              alt="Wallet Icon"
-              className="h-[0.917vw] w-[1.12vw] mr-2 text-white"
-            />
-          )}
+          <img
+            src={walletIcon}
+            alt="Wallet Icon"
+            className="h-[1.19vw] w-[1.45vw] mr-[1.19vw]"
+          />
           {text}
         </button>
       ) : (

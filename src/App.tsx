@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
-import Stake from "./modules/Stake";
+import Portfolio from "./modules/Portfolio";
 
 const App: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const App: React.FC = () => {
       <Router>
         <Header />
         <Routes>
-          <Route index element={<Stake />} />
+          <Route index element={<Portfolio />} />
           {/* <Route path="swap" element={<Swap />} /> */}
           {/* <Route path="portfolio/*" element={<Portfolio />} /> */}
         </Routes>
