@@ -8,6 +8,7 @@ module.exports = {
         noto: ["Noto Sans", "sans-serif"],
         inter: ["Inter", "sans-serif"],
         nebula: ["Nebula", "sans-serif"],
+        poppinsmedium: ["PoppinsMedium", "sans-serif"],
       },
       keyframes: {
         "slide-in": {

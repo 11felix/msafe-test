@@ -27,3 +27,8 @@ code {
   font-family: "Inter";
   src: url("./assets/fonts/InterRegular.otf") format("truetype");
 }
+
+@font-face {
+  font-family: "PoppinsMedium";
+  src: url("./assets/fonts/PoppinsMedium.ttf") format("truetype");
+}
