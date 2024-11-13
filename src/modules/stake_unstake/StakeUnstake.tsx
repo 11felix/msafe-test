@@ -51,7 +51,7 @@ const StakeUnstake: React.FC = () => {
       </div>
       <div className="relative bg-[url('/src/assets/images/secondSectionBg.png')] bg-contain bg-center bg-no-repeat h-[29.73vw] mt-[-3.3vw]">
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-[1.823vw] mt-[12vw] font-poppins text-black">
+          <h1 className="text-[1.823vw] mt-[12vw] font-poppinsmedium text-black">
             DeFi opportunities with your stSUI
           </h1>
         </div>
