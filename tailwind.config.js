@@ -9,6 +9,9 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
         nebula: ['"Nebula"', "sans-serif"],
         poppinsmedium: ["PoppinsMedium", "sans-serif"],
+        intermedium: ["InterMedium", "sans-serif"],
+        poppinslight: ["PoppinsLight", "sans-serif"],
+        intersemibold: ["InterSemiBold", "sans-serif"],
       },
       keyframes: {
         "slide-in": {
