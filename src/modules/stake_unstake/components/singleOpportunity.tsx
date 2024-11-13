@@ -26,29 +26,29 @@ const SingleOpportunities = (props: Props) => {
                 </div>
                 }
                 
-                <h1>{name}</h1>
+                <h1 className="font-intermedium">{name}</h1>
                 <div className="flex flex-col">
-                    <p className="text-[1.04vw] text-[#000000]">
+                    <p className="text-[1.04vw] text-[#000000] font-poppinslight">
                     APY
                     </p>
-                    <p className="text-[1.25vw] text-[#000000]">
+                    <p className="text-[1.25vw] text-[#000000] font-intersemibold">
                     {apy}
                     </p>
 
                 </div>
                 <div className="flex flex-col">
-                    <p className="text-[1.04vw] text-[#000000]">
+                    <p className="text-[1.04vw] text-[#000000] font-poppinslight">
                     TVL
                     </p>
-                    <p className="text-[1.25vw] text-[#000000]">
+                    <p className="text-[1.25vw] text-[#000000] font-intersemibold">
                     {tvl}
                     </p>
                 </div>
-                <div className="flex flex-row bg-[#000000] w-fit pl-[1.51vw] pr-[1.51vw] pt-[0.52vw] pb-[0.52vw] h-fit rounded-[0.52vw]">
-                    <p className="text-[1.14vw] text-[#FFFFFF] font-poppins">
+                <div className="flex flex-row bg-[#000000] w-fit pl-[1.51vw] pr-[1.51vw] pt-[0.52vw] pb-[0.52vw] h-fit rounded-[0.52vw] items-center">
+                    <p className="text-[1.14vw] text-[#FFFFFF] font-poppinsmedium">
                         Add Liquidity
                     </p>
-                    <img src={redirect_icon} className="w-[0.6435vw] h-[0.6435vw]" />
+                    <img src={redirect_icon} className="w-[0.6435vw] h-[0.6435vw] ml-[0.8vw]" />
                 </div>
             </div>
         </div>

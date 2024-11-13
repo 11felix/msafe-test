@@ -17,7 +17,7 @@ const Opportunities: React.FC = () => {
           tvl={"$10M"}
         />
         <SingleOpportunities
-          icon1={alpha_icon}
+          icon1={stSuiIcon}
           name={"stSUI"}
           apy={"50.00%"}
           tvl={"$10M"}
