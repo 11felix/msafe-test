@@ -7,7 +7,7 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
         noto: ["Noto Sans", "sans-serif"],
         inter: ["Inter", "sans-serif"],
-        nebula: ['"Nebula"', "sans-serif"],
+        nebula: ["Nebula", "sans-serif"],
       },
       keyframes: {
         "slide-in": {

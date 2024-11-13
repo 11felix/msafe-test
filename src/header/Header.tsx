@@ -54,25 +54,33 @@ const Header: React.FC = () => {
         </button>
       </div>
 
-      {/* Mobile Menu Icon */}
-      <button
-        onClick={toggleMenu}
-        className="md:hidden text-2xl text-black focus:outline-none"
-      >
-        {isOpen ? (
-          <img
-            src={CrossIcon}
-            alt="Wallet Icon"
-            className="h-[4.917vw] w-[5.12vw]"
-          />
-        ) : (
-          <img
-            src={MenuIcon}
-            alt="Wallet Icon"
-            className="h-[70px] w-[70px] mr-0"
-          />
-        )}
-      </button>
+      <div className="flex md:hidden">
+        <button
+          onClick={onConnectWallet}
+          className="flex items-center bg-black px-[3.02vw] py-[1.62vw] mr-[3.02vw] rounded-[2.32vw] text-white text-[3.02vw] font-poppins font-medium"
+        >
+          Connect Wallet
+        </button>
+        {/* Mobile Menu Icon */}
+        <button
+          onClick={toggleMenu}
+          className="text-2xl text-black focus:outline-none"
+        >
+          {isOpen ? (
+            <img
+              src={CrossIcon}
+              alt="Wallet Icon"
+              className="h-[4.917vw] w-[5.12vw]"
+            />
+          ) : (
+            <img
+              src={MenuIcon}
+              alt="Wallet Icon"
+              className="h-[4.65vw] w-[4.88vw] mr-0"
+            />
+          )}
+        </button>
+      </div>
 
       {/* Mobile Menu */}
       {isOpen && (
