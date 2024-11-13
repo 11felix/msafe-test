@@ -12,6 +12,7 @@ module.exports = {
         intermedium: ["InterMedium", "sans-serif"],
         poppinslight: ["PoppinsLight", "sans-serif"],
         intersemibold: ["InterSemiBold", "sans-serif"],
+        poppinsregular: ["PoppinsRegular", "sans-serif"],
       },
       keyframes: {
         "slide-in": {

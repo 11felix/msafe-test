@@ -47,3 +47,8 @@ code {
   font-family: "InterSemiBold";
   src: url("./assets/fonts/InterSemiBold.otf") format("truetype");
 }
+
+@font-face {
+  font-family: "PoppinsRegular";
+  src: url("./assets/fonts/PoppinsRegular.ttf") format("truetype");
+}
