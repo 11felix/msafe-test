@@ -18,7 +18,7 @@ const StakeUnstake: React.FC = () => {
 
   return (
     <>
-      <div className="w-full h-full bg-[#E9EFF4]">
+      <div className="w-full h-full bg-gradient-to-b from-[#E9EFF4] to-[#FFFFFF]">
         <div className="flex flex-col justify-center items-center">
           <div className="flex space-x-[5.1vw] justify-center pt-[2.91vw]">
             {tabs.map((tab) => (
@@ -48,6 +48,13 @@ const StakeUnstake: React.FC = () => {
               ALPHA FI
             </p>
           </div>
+        </div>
+      </div>
+      <div className="relative bg-[url('/src/assets/images/secondSectionBg.png')] bg-contain bg-center bg-no-repeat h-[29.73vw] mt-[-9.3vw]">
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <h1 className="text-[1.823vw] mt-[12vw] font-poppins text-black">
+            DeFi opportunities with your stSUI
+          </h1>
         </div>
       </div>
       <Opportunities />
