@@ -39,18 +39,17 @@ const StakeUnstake: React.FC = () => {
             {selectedTab === "Stake" ? <Stake /> : <Unstake />}
           </div>
         </div>
-        <div className="pb-[2vw]">
-          <div className="flex flex-col w-fit ml-[6.3vw] rounded-[1.14vw] bg-[#EFF4F7] hover:bg-[#E5EBEF] ml-[1vw] pt-[0.67vw] pb-[0.83vw] px-[1.09vw] cursor-default">
-            <p className="text-[0.83vw] text-black text-center font-inter">
-              Powered by
-            </p>
-            <p className="text-[1.14vw] text-black text-center font-nebula">
-              ALPHA FI
-            </p>
-          </div>
+
+        <div className="flex flex-col w-fit ml-[6.3vw] rounded-[1.14vw] bg-[#EFF4F7] hover:bg-[#E5EBEF] ml-[1vw] pt-[0.67vw] pb-[0.83vw] px-[1.09vw] cursor-default absolute">
+          <p className="text-[0.83vw] text-black text-center font-inter">
+            Powered by
+          </p>
+          <p className="text-[1.14vw] text-black text-center font-nebula">
+            ALPHA FI
+          </p>
         </div>
       </div>
-      <div className="relative bg-[url('/src/assets/images/secondSectionBg.png')] bg-contain bg-center bg-no-repeat h-[29.73vw] mt-[-9.3vw]">
+      <div className="relative bg-[url('/src/assets/images/secondSectionBg.png')] bg-contain bg-center bg-no-repeat h-[29.73vw] mt-[-3.3vw]">
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <h1 className="text-[1.823vw] mt-[12vw] font-poppins text-black">
             DeFi opportunities with your stSUI
