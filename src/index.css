@@ -23,7 +23,7 @@ code {
   src: url("./assets/fonts/NebulaRegular.otf") format("truetype");
 }
 
-/* @font-face {
+@font-face {
   font-family: "Inter";
   src: url("./assets/fonts/InterRegular.otf") format("truetype");
-} */
+}

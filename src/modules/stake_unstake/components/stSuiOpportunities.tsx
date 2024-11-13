@@ -3,6 +3,7 @@ import FAQView from "./faqComponent";
 import SingleOpportunities from "./singleOpportunity";
 import sui_icon from "../../../assets/icons/suiLogo.svg";
 import alpha_icon from "../../../assets/icons/alpha_logo.png";
+import stSuiIcon from "../../../assets/icons/stSuiLogo.svg";
 
 const Opportunities: React.FC = () => {
   return (
@@ -10,14 +11,14 @@ const Opportunities: React.FC = () => {
       <div className="flex flex-col gap-[2.174vw]">
         <SingleOpportunities
           icon1={alpha_icon}
-          icon2={sui_icon}
+          icon2={stSuiIcon}
           name={"ALPHA-stSUI"}
           apy={"50.00%"}
           tvl={"$10M"}
         />
         <SingleOpportunities
           icon1={alpha_icon}
-          name={"ALPHA-stSUI"}
+          name={"stSUI"}
           apy={"50.00%"}
           tvl={"$10M"}
         />
