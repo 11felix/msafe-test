@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import stSuiLogo from "../assets/icons/stSuiLogo.svg";
-import walletIcon from "../assets/icons/walletIcon.svg";
 import twitter from "../assets/icons/twitter.svg";
 import telegram from "../assets/icons/telegram.svg";
 import medium from "../assets/icons/medium.svg";
+import blueTwitter from "../assets/icons/blueTwitter.svg";
+import blueTelegram from "../assets/icons/blueTelegram.svg";
+import blueMedium from "../assets/icons/blueMedium.svg";
 import movebit from "../assets/icons/movebit.png";
 import zeroShadow from "../assets/icons/zeroShadow.png";
 import safeLock from "../assets/icons/safe_lock.svg";
 
 const Footer: React.FC = () => {
+  const [isTwitterHovered, setIsTwitterHovered] = useState(false);
+  const [isTelegramHovered, setIsTelegramHovered] = useState(false);
+  const [isMediumHovered, setIsMediumHovered] = useState(false);
+
   return (
     <footer className="flex flex-col">
       <div className="bg-black pt-[4.06vw] pb-[4.87vw] flex flex-col justify-center w-full">
@@ -67,33 +73,29 @@ const Footer: React.FC = () => {
           <div className="flex justify-center items-center space-x-4 md:space-x-10 md:w-[33%]">
             <a href="" target="_blank" rel="" className="">
               <img
-                src={twitter}
-                alt=""
-                className="h-6 w-6 md:w-[1.12vw] md:h-[1.36vw]"
+                src={isTwitterHovered ? blueTwitter : twitter}
+                alt="Twitter"
+                className="h-6 w-6 md:w-[1.51vw] md:h-[1.38vw]"
+                onMouseEnter={() => setIsTwitterHovered(true)}
+                onMouseLeave={() => setIsTwitterHovered(false)}
               />
             </a>
-            <a
-              href=""
-              target="_blank"
-              rel=""
-              className="text-gray-500 hover:text-gray-800"
-            >
+            <a href="" target="_blank" rel="" className="">
               <img
-                src={telegram}
-                alt=""
+                src={isTelegramHovered ? blueTelegram : telegram}
+                alt="Telegram"
                 className="h-6 w-6 md:w-[1.65vw] md:h-[1.36vw]"
+                onMouseEnter={() => setIsTelegramHovered(true)}
+                onMouseLeave={() => setIsTelegramHovered(false)}
               />
             </a>
-            <a
-              href=""
-              target="_blank"
-              rel=""
-              className="text-gray-500 hover:text-gray-800"
-            >
+            <a href="" target="_blank" rel="" className="">
               <img
-                src={medium}
-                alt=""
+                src={isMediumHovered ? blueMedium : medium}
+                alt="Medium"
                 className="h-6 w-6 md:w-[2.09vw] md:h-[1.18vw]"
+                onMouseEnter={() => setIsMediumHovered(true)}
+                onMouseLeave={() => setIsMediumHovered(false)}
               />
             </a>
           </div>

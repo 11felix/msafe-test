@@ -7,7 +7,7 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
         noto: ["Noto Sans", "sans-serif"],
         inter: ["Inter", "sans-serif"],
-        // poppinsmedium: ["PoppinsMedium", "sans-serif"]
+        nebula: ['"Nebula"', "sans-serif"],
       },
       keyframes: {
         "slide-in": {
@@ -17,6 +17,9 @@ module.exports = {
       },
       animation: {
         "slide-in": "slide-in 0.6s ease-out forwards",
+      },
+      boxShadow: {
+        custom: "0px 1px 8px #2D9EFF1A",
       },
     },
   },

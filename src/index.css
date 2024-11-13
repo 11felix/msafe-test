@@ -1,9 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&family=Nebula&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-/* @import url("../src/assets/fonts/PoppinsMedium.ttf"); */
 
 body {
   margin: 0;
@@ -19,7 +18,12 @@ code {
     monospace;
 }
 
+@font-face {
+  font-family: "Nebula";
+  src: url("./assets/fonts/NebulaRegular.otf") format("truetype");
+}
+
 /* @font-face {
-  font-family: "PoppinsMedium";
-  src: url("../src/assets/fonts/PoppinsMedium.ttf");
+  font-family: "Inter";
+  src: url("./assets/fonts/InterRegular.otf") format("truetype");
 } */

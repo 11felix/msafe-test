@@ -18,7 +18,7 @@ const Stake: React.FC = () => {
 
   return (
     <div className="flex relative pt-[1.66vw]">
-      <div className="w-[26.30vw] h-fit p-[2.08vw] bg-white rounded-[1.45vw] flex flex-col mx-auto">
+      <div className="w-[26.30vw] h-fit p-[2.08vw] bg-white rounded-[1.45vw] flex flex-col mx-auto shadow-custom">
         <div className="mb-[0.93vw]">
           <InputContainer
             title="Stake SUI"
@@ -41,19 +41,19 @@ const Stake: React.FC = () => {
         <div className="mt-[1.97vw]">
           <div className="flex justify-between items-center">
             <p className="text-black text-[1.04vw] font-inter">Exchange rate</p>
-            <p className="text-black text-[1.04vw] font-inter font-bold">
+            <p className="text-black text-[1.04vw] font-inter font-semibold">
               1SUI=1stSUI
             </p>
           </div>
           <div className="flex justify-between items-center">
             <p className="text-black text-[1.04vw] font-inter">Staking fee</p>
-            <p className="text-black text-[1.04vw] font-inter font-bold">
+            <p className="text-black text-[1.04vw] font-inter font-semibold">
               0.00%
             </p>
           </div>
           <div className="flex justify-between items-center">
             <p className="text-black text-[1.04vw] font-inter">APY</p>
-            <p className="text-black text-[1.04vw] font-inter font-bold">
+            <p className="text-black text-[1.04vw] font-inter font-semibold">
               4.03%
             </p>
           </div>

@@ -18,7 +18,7 @@ const Unstake: React.FC = () => {
 
   return (
     <div className="flex relative pt-[1.66vw]">
-      <div className="w-[26.30vw] h-fit p-[2.08vw] bg-white rounded-[1.45vw] flex flex-col mx-auto">
+      <div className="w-[26.30vw] h-fit p-[2.08vw] bg-white rounded-[1.45vw] flex flex-col mx-auto shadow-custom">
         <div className="mb-[0.93vw]">
           <InputContainer
             title="Unstake SUI"
@@ -41,13 +41,13 @@ const Unstake: React.FC = () => {
         <div className="mt-[1.97vw]">
           <div className="flex justify-between items-center">
             <p className="text-black text-[1.04vw] font-inter">Exchange rate</p>
-            <p className="text-black text-[1.04vw] font-inter font-bold">
+            <p className="text-black text-[1.04vw] font-inter font-semibold">
               1SUI=1stSUI
             </p>
           </div>
           <div className="flex justify-between items-center">
             <p className="text-black text-[1.04vw] font-inter">Unstaking fee</p>
-            <p className="text-black text-[1.04vw] font-inter font-bold">
+            <p className="text-black text-[1.04vw] font-inter font-semibold">
               0.03%
             </p>
           </div>

@@ -12,7 +12,7 @@ const Stats: React.FC = () => {
     <div className="relative flex flex-col align-left">
       <button
         onClick={toggleStats}
-        className="flex items-center justify-center py-[0.57vw] px-[0.85vw] rounded-[0.7vw] bg-white shadow-md transition-transform"
+        className="flex items-center justify-center py-[0.57vw] px-[0.85vw] rounded-[0.7vw] bg-white shadow-custom transition-transform"
       >
         <span className="flex items-center text-[1.04vw] font-inter font-medium">
           {" "}
