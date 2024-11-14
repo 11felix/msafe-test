@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import stSuiLogo from "../assets/icons/stSuiLogo.svg";
 import walletIcon from "../assets/icons/walletIcon.svg";
+import whiteWallet from "../assets/icons/whiteWallet.svg";
 import CrossIcon from "../assets/icons/black_cross_icon.svg";
 import MenuIcon from "../assets/icons/menuIcon.svg";
 import {
@@ -10,6 +11,9 @@ import {
   useAccounts, 
   useSwitchAccount
 } from "@mysten/dapp-kit";
+import twitter from "../assets/icons/twitter.svg";
+import telegram from "../assets/icons/telegram.svg";
+import medium from "../assets/icons/medium.svg";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -134,7 +138,7 @@ const Header: React.FC = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="fixed inset-0 bg-[#E9EFF4] z-50 flex flex-col items-center justify-center">
+        <div className="fixed inset-0 bg-[#E9EFF4] z-50 flex flex-col items-center">
           <button
             onClick={toggleMenu}
             className="absolute top-4 right-4 text-3xl text-black focus:outline-none"
@@ -146,16 +150,27 @@ const Header: React.FC = () => {
             />
           </button>
 
+          <div className="flex items-center mt-[40.85vw] mb-[20.69vw]">
+            <img
+              src={stSuiLogo}
+              alt="Logo"
+              className="h-[17.98vw] w-[17.98vw] rounded-full mr-[4.72vw]"
+            />
+            <span className="font-poppins font-medium text-[8.13vw]">
+              stSUI
+            </span>
+          </div>
+
           <a
             href="#link1"
-            className="hover:text-[#73A6FC] text-2xl font-poppins font-bold mb-6"
+            className="hover:text-[#73A6FC] text-[4.18vw] font-poppins font-bold mb-[5.34vw]"
             onClick={() => setIsOpen(false)}
           >
             ALPHA FI
           </a>
           <a
             href="#link2"
-            className="hover:text-[#73A6FC] text-2xl font-poppins font-bold mb-6"
+            className="hover:text-[#73A6FC] text-[4.18vw] font-poppins font-bold"
             onClick={() => setIsOpen(false)}
           >
             DOCS
@@ -165,15 +180,38 @@ const Header: React.FC = () => {
               onConnectWallet();
               setIsOpen(false);
             }}
-            className="flex items-center border-2 border-[#000000] bg-[#E9EFF4] px-8 py-2 rounded-[12px] hover:bg-black hover:text-white text-2xl font-poppins font-medium"
+            className="flex items-center bg-black px-[4.18vw] py-[2.32vw] rounded-[12px] text-[4.65vw] font-poppins font-medium text-white mt-[65vw]"
           >
             <img
-              src={walletIcon}
+              src={whiteWallet}
               alt="Wallet Icon"
-              className="h-6 w-6 mr-3 text-black group-hover:invert"
+              className="h-[4vw] w-[4.89vw] mr-[2.63vw] text-white"
             />
             Connect Wallet
           </button>
+          <div className="flex justify-center items-center mt-[19.47vw]">
+            <a href="" target="_blank" rel="" className="">
+              <img
+                src={twitter}
+                alt="Twitter"
+                className="w-[5.4vw] h-[4.88vw] mr-[7.80vw]"
+              />
+            </a>
+            <a href="" target="_blank" rel="" className="">
+              <img
+                src={telegram}
+                alt="Telegram"
+                className="w-[5.91vw] h-[4.88vw] mr-[7.80vw]"
+              />
+            </a>
+            <a href="" target="_blank" rel="" className="">
+              <img
+                src={medium}
+                alt="Medium"
+                className="w-[7.47vw] h-[4.24vw]"
+              />
+            </a>
+          </div>
         </div>
       )}
     </header>
