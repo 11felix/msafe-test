@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import FAQView from "./faqComponent";
 
 const FAQ: React.FC = () => {
-  const [showExpanded, setShowExpanded] = useState(false);
 
   return (
     <div className="my-[12.15vw]">
@@ -15,28 +14,24 @@ const FAQ: React.FC = () => {
           answer={
             "Liquid staking lets users stake their assets while keeping them accessible. For example, by staking SUI with Alpha, you receive stSUI—a ‘liquid’ token representing your staked assets. You can still trade or use stSUI in DeFi activities, earning rewards without locking up your SUI."
           }
-          showAnswer={showExpanded}
         />
         <FAQView
           question={"How do I get my staking rewards?"}
           answer={
             "Liquid staking lets users stake their assets while keeping them accessible. For example, by staking SUI with Alpha, you receive stSUI—a ‘liquid’ token representing your staked assets. You can still trade or use stSUI in DeFi activities, earning rewards without locking up your SUI."
           }
-          showAnswer={showExpanded}
         />
         <FAQView
           question={"How are staking rewards calculated with stSUI?"}
           answer={
             "Liquid staking lets users stake their assets while keeping them accessible. For example, by staking SUI with Alpha, you receive stSUI—a ‘liquid’ token representing your staked assets. You can still trade or use stSUI in DeFi activities, earning rewards without locking up your SUI."
           }
-          showAnswer={showExpanded}
         />
         <FAQView
           question={"Is stSUI safe?"}
           answer={
             "Liquid staking lets users stake their assets while keeping them accessible. For example, by staking SUI with Alpha, you receive stSUI—a ‘liquid’ token representing your staked assets. You can still trade or use stSUI in DeFi activities, earning rewards without locking up your SUI."
           }
-          showAnswer={showExpanded}
         />
         <FAQView
           question={`What happens to my staked SUI if I decide to\n
@@ -44,7 +39,6 @@ const FAQ: React.FC = () => {
           answer={
             "Liquid staking lets users stake their assets while keeping them accessible. For example, by staking SUI with Alpha, you receive stSUI—a ‘liquid’ token representing your staked assets. You can still trade or use stSUI in DeFi activities, earning rewards without locking up your SUI."
           }
-          showAnswer={showExpanded}
         />
       </div>
     </div>

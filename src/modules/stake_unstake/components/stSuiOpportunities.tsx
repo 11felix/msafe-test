@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import FAQView from "./faqComponent";
+import React from "react";
 import SingleOpportunities from "./singleOpportunity";
-import sui_icon from "../../../assets/icons/suiLogo.svg";
 import alpha_icon from "../../../assets/icons/alpha_logo.png";
 import stSuiIcon from "../../../assets/icons/stSuiLogo.svg";
 

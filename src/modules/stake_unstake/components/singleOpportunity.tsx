@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import redirect_icon from "../../../assets/icons/redirect_icon.svg";
 
 interface Props {
@@ -17,12 +17,12 @@ const SingleOpportunities = (props: Props) => {
             <div className="grid grid-cols-[10%_25%_15%_15%_35%] w-[49.0625vw] gap-[1.04vw]">
                 {icon2 !== undefined ?
                 <div className="flex flex-row flex items-center">
-                    <img src={icon1} className="w-[2.343vw] h-[2.342vw]" />
-                    <img src={icon2} className="w-[2.343vw] h-[2.342vw] ml-[-0.5vw]" />
+                    <img src={icon1} className="w-[2.343vw] h-[2.342vw]" alt="token-icon" />
+                    <img src={icon2} className="w-[2.343vw] h-[2.342vw] ml-[-0.5vw]" alt="token-icon" />
                 </div>
                 :
                 <div>
-                    <img src={icon1} className="w-[3.541vw] h-[3.541vw]" />
+                    <img src={icon1} className="w-[3.541vw] h-[3.541vw]" alt="token-icon" />
                 </div>
                 }
                 
@@ -48,7 +48,7 @@ const SingleOpportunities = (props: Props) => {
                     <p className="text-[1.14vw] text-[#FFFFFF] font-poppinsmedium">
                         Add Liquidity
                     </p>
-                    <img src={redirect_icon} className="w-[0.6435vw] h-[0.6435vw] ml-[0.8vw]" />
+                    <img src={redirect_icon} className="w-[0.6435vw] h-[0.6435vw] ml-[0.8vw]" alt="redirect-icon" />
                 </div>
             </div>
         </div>

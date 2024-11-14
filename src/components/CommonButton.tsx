@@ -14,7 +14,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
 
   useEffect(() => {
     setWalletConnected(isWalletConnected);
-  }, []);
+  }, [walletConnected]);
 
   return (
     <>

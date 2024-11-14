@@ -1,18 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import stSuiLogo from "../assets/icons/stSuiLogo.svg";
 import walletIcon from "../assets/icons/walletIcon.svg";
 import CrossIcon from "../assets/icons/black_cross_icon.svg";
 import MenuIcon from "../assets/icons/menuIcon.svg";
+import {
+  useCurrentAccount,
+  ConnectModal,
+  useDisconnectWallet,
+  useAccounts, 
+  useSwitchAccount
+} from "@mysten/dapp-kit";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const currentAccount = useCurrentAccount();
+  const { mutate: switchAccount } = useSwitchAccount();
+	const accounts = useAccounts();
+  const [openWalletOptions, setOpenWalletOptions] = useState(false);
+  const [showDisconnectPopup, setShowDisconnectPopup] = useState(false);
+  const { mutate: disconnect } = useDisconnectWallet();
+  const [shortAddress, setShortAddress] = useState("connect wallet");
+  const walletPopUpRef = useRef<HTMLDivElement | null>();
 
+  useEffect(() => {
+    if (currentAccount && currentAccount.address) {
+      const mini_address = getAddress(currentAccount);
+      setShortAddress(mini_address);
+    }
+  }, [currentAccount]);
+  
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   const onConnectWallet = () => {
     console.log("wallet connect");
+  };
+
+  const getAddress = (addressObj: any) => {
+    const address = addressObj.address;
+    const add1 = address.substring(0, 4);
+    const add2 = address.substring(address.length - 4);
+    const finalAdd = `${add1}....${add2}`;
+    return finalAdd;
   };
 
   return (
@@ -41,17 +71,37 @@ const Header: React.FC = () => {
         >
           DOCS
         </a>
-        <button
-          onClick={onConnectWallet}
-          className="flex items-center border-[0.104vw] border-[#000000] bg-[#E9EFF4] h-[2.5vw] px-6 rounded-[0.62vw] hover:bg-black hover:text-white text-[1.04vw] font-poppins font-medium group"
-        >
-          <img
-            src={walletIcon}
-            alt="Wallet Icon"
-            className="h-[0.917vw] w-[1.12vw] mr-2 text-black group-hover:invert"
-          />
-          Connect Wallet
-        </button>
+        {currentAccount && currentAccount.address ?
+          <button
+            onClick={onConnectWallet}
+            className="flex items-center border-[0.104vw] border-[#000000] bg-[#E9EFF4] h-[2.5vw] px-6 rounded-[0.62vw] hover:bg-black hover:text-white text-[1.04vw] font-poppins font-medium group"
+          >
+            <img
+              src={walletIcon}
+              alt="Wallet Icon"
+              className="h-[0.917vw] w-[1.12vw] mr-2 text-black group-hover:invert"
+            />
+            {shortAddress}
+          </button>
+          :
+          <ConnectModal
+              trigger={
+                <button
+                  onClick={onConnectWallet}
+                  className="flex items-center border-[0.104vw] border-[#000000] bg-[#E9EFF4] h-[2.5vw] px-6 rounded-[0.62vw] hover:bg-black hover:text-white text-[1.04vw] font-poppins font-medium group"
+                >
+                  <img
+                    src={walletIcon}
+                    alt="Wallet Icon"
+                    className="h-[0.917vw] w-[1.12vw] mr-2 text-black group-hover:invert"
+                  />
+                  Connect Wallet
+                </button>
+              }
+              open={openWalletOptions}
+              onOpenChange={(isOpen) => setOpenWalletOptions(isOpen)}
+            />
+        }
       </div>
 
       <div className="flex md:hidden">

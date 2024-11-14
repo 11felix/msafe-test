@@ -4,15 +4,13 @@ import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import StakeUnstake from "./modules/stake_unstake";
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <>
       <Router>
         <Header />
         <Routes>
           <Route index element={<StakeUnstake />} />
-          {/* <Route path="swap" element={<Swap />} /> */}
-          {/* <Route path="portfolio/*" element={<Portfolio />} /> */}
         </Routes>
         <Footer />
       </Router>

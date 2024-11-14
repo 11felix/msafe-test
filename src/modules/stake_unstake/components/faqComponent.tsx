@@ -4,11 +4,10 @@ import down_icon from "../../../assets/icons/down_pointer.svg"
 interface Props {
     question: string;
     answer: string;
-    showAnswer: boolean;
 }
 
 const FAQView  = (props: Props) => {
-    const {question, answer, showAnswer} = props
+    const {question, answer} = props
     const [showExpanded, setShowExpanded] = useState(false);
     
     return (
@@ -19,7 +18,7 @@ const FAQView  = (props: Props) => {
                 <div className="flex flex-row">
                     <div className="flex justify-left text-[1.302vw] w-[40.677vw] font-poppinsregular">{question}</div>
                     <div className="flex justify-center items-center">
-                        <img src={down_icon} className={`w-[1.417vw] h-[0.708vw] ${showExpanded ? "rotate-180": ""}`} />
+                        <img src={down_icon} className={`w-[1.417vw] h-[0.708vw] ${showExpanded ? "rotate-180": ""}`} alt="down-icon" />
                     </div>
                 </div>
                 
