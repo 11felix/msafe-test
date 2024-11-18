@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import stSuiLogo from "../assets/icons/stSuiLogo.svg";
 import walletIcon from "../assets/icons/walletIcon.svg";
 import whiteWallet from "../assets/icons/whiteWallet.svg";
@@ -7,9 +7,9 @@ import MenuIcon from "../assets/icons/menuIcon.svg";
 import {
   useCurrentAccount,
   ConnectModal,
-  useDisconnectWallet,
-  useAccounts, 
-  useSwitchAccount
+  // useDisconnectWallet,
+  // useAccounts, 
+  // useSwitchAccount
 } from "@mysten/dapp-kit";
 import twitter from "../assets/icons/twitter.svg";
 import telegram from "../assets/icons/telegram.svg";
@@ -18,13 +18,13 @@ import medium from "../assets/icons/medium.svg";
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const currentAccount = useCurrentAccount();
-  const { mutate: switchAccount } = useSwitchAccount();
-	const accounts = useAccounts();
+  // const { mutate: switchAccount } = useSwitchAccount();
+	// const accounts = useAccounts();
   const [openWalletOptions, setOpenWalletOptions] = useState(false);
-  const [showDisconnectPopup, setShowDisconnectPopup] = useState(false);
-  const { mutate: disconnect } = useDisconnectWallet();
+  // const [showDisconnectPopup, setShowDisconnectPopup] = useState(false);
+  // const { mutate: disconnect } = useDisconnectWallet();
   const [shortAddress, setShortAddress] = useState("connect wallet");
-  const walletPopUpRef = useRef<HTMLDivElement | null>();
+  // const walletPopUpRef = useRef<HTMLDivElement | null>();
 
   useEffect(() => {
     if (currentAccount && currentAccount.address) {
