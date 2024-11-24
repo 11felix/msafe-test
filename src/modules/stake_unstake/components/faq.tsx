@@ -4,8 +4,8 @@ import FAQView from "./faqComponent";
 const FAQ: React.FC = () => {
 
   return (
-    <div className="my-[12.15vw]">
-      <h1 className="flex justify-center text-[2.23vw] font-poppinsmedium">
+    <div className="md:my-[12.15vw]">
+      <h1 className="flex justify-center text-[5.11vw] md:text-[2.23vw] font-poppinsmedium">
         FAQ
       </h1>
       <div className="mt-[5.133vw]">

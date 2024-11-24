@@ -20,7 +20,6 @@ function getCurrentBranch() {
 
 module.exports = (_env, _argv) => {
   let envFile;
-  // Set the outDir based on the Git branch
   const branch = getCurrentBranch();
 
   switch (branch) {
@@ -46,31 +45,32 @@ module.exports = (_env, _argv) => {
       publicPath: "/",
     },
     resolve: {
-      // alias: {
+      alias: {
       //   "decimal.js": path.resolve(__dirname, "node_modules/decimal.js"),
       //   "bignumber.js": path.resolve(__dirname, "node_modules/bignumber.js"),
       //   "valibot/dist": path.resolve(__dirname, "node_modules/valibot/dist"),
       //   graphql: path.resolve(__dirname, "node_modules/graphql"),
       //   "@mysten/sui": path.resolve(__dirname, "node_modules/@mysten/sui"),
-      // },
+        
+      },
       extensions: [".ts", ".js", ".tsx"],
-      // fallback: {
-      //   fs: false,
-      //   assert: require.resolve("assert/"),
-      //   buffer: require.resolve("buffer"),
-      //   http: require.resolve("stream-http"),
-      //   https: require.resolve("https-browserify"),
-      //   os: require.resolve("os-browserify/browser"),
-      //   path: require.resolve("path-browserify"),
-      //   stream: require.resolve("stream-browserify"),
-      //   tty: require.resolve("tty-browserify"),
-      //   url: require.resolve("url/"),
-      //   util: require.resolve("util/"),
-      //   crypto: require.resolve("crypto-browserify"),
-      //   zlib: require.resolve("browserify-zlib"),
-      //   vm: require.resolve("vm-browserify"),
-      //   process: require.resolve("process/browser"),
-      // },
+      fallback: {
+        fs: false,
+        assert: require.resolve("assert/"),
+        buffer: require.resolve("buffer"),
+        http: require.resolve("stream-http"),
+        https: require.resolve("https-browserify"),
+        os: require.resolve("os-browserify/browser"),
+        path: require.resolve("path-browserify"),
+        stream: require.resolve("stream-browserify"),
+        tty: require.resolve("tty-browserify"),
+        url: require.resolve("url/"),
+        util: require.resolve("util/"),
+        crypto: require.resolve("crypto-browserify"),
+        zlib: require.resolve("browserify-zlib"),
+        vm: require.resolve("vm-browserify"),
+        process: require.resolve("process/browser"),
+      },
     },
     module: {
       rules: [
@@ -81,11 +81,18 @@ module.exports = (_env, _argv) => {
         },
         {
           test: /\.css$/,
-          use: ["style-loader", "css-loader"],
+          use: [
+            "style-loader", // Injects styles into the DOM
+            "css-loader", // Resolves @import and url() syntax
+            "postcss-loader", // Processes CSS with PostCSS
+          ],
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
           type: "asset/resource",
+          generator: {
+            filename: "assets/images/[name][hash][ext][query]",
+          },
         },
         {
           test: /\.(ttf|otf|woff|woff2|eot)$/,
@@ -107,16 +114,16 @@ module.exports = (_env, _argv) => {
       historyApiFallback: true,
     },
     plugins: [
-      // new HtmlWebpackPlugin({
-      //   template: "./src/index.html",
-      //   favicon: "./src/favicon.ico", // This will inject the favicon link into the HTML,
-      // }),
-      // new CopyWebpackPlugin({
-      //   patterns: [
-      //     { from: "src/favicon.ico", to: "favicon.ico" },
-      //     { from: "src/assets", to: "assets" },
-      //   ],
-      // }),
+      new HtmlWebpackPlugin({
+        template: "./src/index.html",
+        favicon: "./src/favicon.ico",
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: "src/favicon.ico", to: "favicon.ico" },
+          { from: "src/assets", to: "assets" },
+        ],
+      }),
       new Dotenv({
         path: envFile,
       }),

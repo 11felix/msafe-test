@@ -31,8 +31,8 @@ const InputContainer: React.FC<InputContainerProps> = ({
   };
 
   return (
-    <div className="pt-[1.14vw] pb-[0.83vw] px-[1.45vw] border border-[#89A2B5] rounded-[1.3vw] w-[100%] h-fit">
-      <div className="text-[1.04vw] font-inter font-medium text-black">
+    <div className="pt-[3.72vw] px-[4.65vw] md:pt-[1.14vw] pb-[2.9vw] md:pb-[0.83vw] md:px-[1.45vw] border border-[0.23vw] md:border-[0.05vw] border-[#D3E6F5] rounded-[5.81vw] md:rounded-[1.3vw] w-[100%] h-fit">
+      <div className="text-[3.25vw] md:text-[1.04vw] font-inter font-medium text-black">
         {title}
       </div>
       <div className="flex flex-col items-center mt-2">
@@ -43,25 +43,25 @@ const InputContainer: React.FC<InputContainerProps> = ({
               value={inputValue}
               onChange={handleInputChange}
               placeholder="0"
-              className="no-spinner w-[11.3vw] text-[1.77vw] font-inter font-medium text-black outline-none"
+              className="no-spinner w-[43.1vw] md:w-[11.3vw] text-[5.81vw] md:text-[1.77vw] font-inter font-medium text-black outline-none"
             />
           </div>
           <div className="flex items-center">
             {isMaxBtn && (
               <button
                 onClick={handleMaxClick}
-                className="border-[0.104vw] border-[#000000] h-fit pt-[0.3vw] pb-[0.2vw] px-[0.3vw] rounded-[0.41vw] hover:bg-black hover:text-white text-[0.67vw] font-poppins font-semibold"
+                className="border-[0.23vw] md:border-[0.104vw] border-[#000000] h-fit p-[0.93vw] md:pt-[0.3vw] md:pb-[0.2vw] md:px-[0.3vw] rounded-[1.39vw] md:rounded-[0.41vw] hover:bg-black hover:text-white text-[2.32vw] md:text-[0.67vw] font-poppins font-semibold"
               >
                 MAX
               </button>
             )}
-            <div className="flex items-center ml-[0.6vw]">
+            <div className="flex items-center ml-[1.57vw] md:ml-[0.6vw]">
               <img
                 src={tokenIcon}
                 alt={`${tokenName} icon`}
-                className="w-[1.66vw] h-[1.66vw] rounded-full"
+                className="w-[5.59vw] h-[5.59vw] md:w-[1.66vw] md:h-[1.66vw] rounded-full"
               />
-              <span className="text-black text-[1.14vw] font-inter font-bold ml-[0.3vw]">
+              <span className="text-black text-[3.48vw] md:text-[1.14vw] font-inter font-bold ml-[0.97vw] md:ml-[0.3vw]">
                 {tokenName}
               </span>
             </div>
@@ -70,16 +70,16 @@ const InputContainer: React.FC<InputContainerProps> = ({
         <div className="flex justify-between w-full">
           <div>
             {inputValue && (
-              <div className="text-[#829CB2] font-inter font-medium text-[0.88vw]">
+              <div className="text-[#829CB2] font-inter font-medium text-[2.79vw] md:text-[0.88vw]">
                 ${usdValue.toFixed(2)}
               </div>
             )}
           </div>
-          <div className="flex items-center text-[#829CB2] font-inter font-medium text-[0.88vw]">
+          <div className="flex items-center text-[#829CB2] font-inter font-medium text-[2.79vw] md:text-[0.88vw]">
             <img
               src={GreyWallet}
               alt="wallet"
-              className="h-[0.83vw] w-[0.93vw] mr-[0.31vw]"
+              className="h-[3.25vw] w-[3.63vw] md:h-[0.83vw] md:w-[0.93vw] mr-[1.39vw] md:mr-[0.31vw]"
             />
             {balance.toFixed(2)}
           </div>

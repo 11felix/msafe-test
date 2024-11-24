@@ -52,3 +52,8 @@ code {
   font-family: "PoppinsRegular";
   src: url("./assets/fonts/PoppinsRegular.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "PoppinsSemiBold";
+  src: url("./assets/fonts/PoppinsSemiBold.ttf") format("truetype");
+}

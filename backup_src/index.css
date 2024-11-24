@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&family=Nebula&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@font-face {
+  font-family: "Nebula";
+  src: url("./assets/fonts/NebulaRegular.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/InterRegular.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "PoppinsMedium";
+  src: url("./assets/fonts/PoppinsMedium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "InterMedium";
+  src: url("./assets/fonts/InterMedium.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "PoppinsLight";
+  src: url("./assets/fonts/PoppinsLight.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "InterSemiBold";
+  src: url("./assets/fonts/InterSemiBold.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "PoppinsRegular";
+  src: url("./assets/fonts/PoppinsRegular.ttf") format("truetype");
+}
