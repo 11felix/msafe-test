@@ -102,7 +102,7 @@ module.exports = (_env, _argv) => {
         },
       ],
     },
-    mode: "production",
+    mode: "development",
     devServer: {
       static: {
         directory: path.join(__dirname, "dist"),

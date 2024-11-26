@@ -18,7 +18,12 @@ import { Transaction } from "@mysten/sui/transactions";
 
 const StakeUnstake = () => {
   const [selectedTab, setSelectedTab] = useState("Stake");
-  // const [stakeSuiValue, setStakeSuiValue] = useState("0");
+  const [stakeSuiValue, setStakeSuiValue] = useState("1");
+  const [stakeSuiValueForDisplay, setStakeSuiValueForDisplay] = useState("0");
+  const [unstakeStSuiValue, setUnstakeStSuiValue] = useState("0");
+  const [unstakeStSuiValueForDisplay, setUnstakeStSuiValueForDisplay] = useState("0");
+  const [stakeLoader, setStakeLoader] = useState(false)
+  const [unstakeLoader, setUnstakeLoader] = useState(false)
   const tabs = ["Stake", "Unstake"];
   const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction();
   const suiClient = getSuiClient();
@@ -38,6 +43,7 @@ const StakeUnstake = () => {
   const mintSuiTokens = async () => {
     console.log("in stake func", currentAccount?.address, suiClient)
     try {
+      setStakeLoader(true)
       const txb = await mint("1000000000", {address: "0xb26c4b36f48f96a5e615c821b30fdd564dd6a047cdad8c56e61a4c47f38c4173"});
       if (txb) {
         signAndExecuteTransaction(
@@ -73,6 +79,7 @@ const StakeUnstake = () => {
                 txbCheck.effects.status.status
               ) {
                 if (txbCheck.effects.status.status === "success") {
+                  setStakeLoader(false)
                   // const obj = {
                   //   link: `${transactionUrl}/${txbCheck.digest}`,
                   //   message: `You have successfully swapped ${sendTokenValueForDisplay} ${sentToken.symbol} to ${receiveTokenValueForDisplay} ${receiveToken.symbol}.`,
@@ -83,6 +90,7 @@ const StakeUnstake = () => {
                   //   console.log("transactionLink", transactionLink, obj);
                   // }
                 } else {
+                  setStakeLoader(false)
                   // const obj = {
                   //   link: `${transactionUrl}/${txbCheck.digest}`,
                   //   message: `You swap of ${sendTokenValueForDisplay} ${sentToken.symbol} to ${receiveTokenValueForDisplay} ${receiveToken.symbol} has failed.`,
@@ -96,6 +104,7 @@ const StakeUnstake = () => {
 
             onError: async (result: any) => {
               console.log("trx reject", result);
+              setStakeLoader(false)
               // if (debug) {
               //   console.log("trx reject", result);
               // }
@@ -113,12 +122,14 @@ const StakeUnstake = () => {
               // if (debug) {
               //   console.log("trx settled", data, error, variables, context);
               // }
+              setStakeLoader(false)
             },
           }
         );
       }
     } catch(error){
       console.log("error", error)
+      setStakeLoader(false)
     }
   }
 
@@ -230,7 +241,28 @@ const StakeUnstake = () => {
             ))}
           </div>
           <div className="pb-[3.5vw]">
-            {selectedTab === "Stake" ? <Stake mintSuiTokens={mintSuiTokens} /> : <Unstake redeemSuiTokens={redeemSuiTokens} />}
+            {selectedTab === "Stake" ? 
+            <Stake 
+              mintSuiTokens={mintSuiTokens} 
+              stakeSuiValue={stakeSuiValue}
+              setStakeSuiValue={setStakeSuiValue} 
+              stakeSuiValueForDisplay={stakeSuiValueForDisplay} 
+              setStakeSuiValueForDisplay={setStakeSuiValueForDisplay}
+              isWalletConnected={currentAccount?.address ? true : false}
+              setStakeLoader={setStakeLoader}
+              stakeLoader={stakeLoader}
+            /> 
+            : 
+            <Unstake 
+              redeemSuiTokens={redeemSuiTokens} 
+              unstakeStSuiValue={unstakeStSuiValue}
+              setUnstakeStSuiValue={setUnstakeStSuiValue}
+              unstakeStSuiValueForDisplay={unstakeStSuiValueForDisplay}
+              setUnstakeStSuiValueForDisplay={setUnstakeStSuiValueForDisplay}
+              isWalletConnected={currentAccount?.address ? true : false}
+              unstakeLoader={unstakeLoader}
+              setUnstakeLoader={setUnstakeLoader}
+            />}
           </div>
         </div>
 

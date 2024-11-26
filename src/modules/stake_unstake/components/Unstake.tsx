@@ -7,7 +7,7 @@ import Stats from "./Stats";
 import MobileStats from "./MobileStats";
 
 const Unstake = (props: any) => {
-  const {redeemSuiTokens} = props;
+  const {redeemSuiTokens, unstakeStSuiValue, setUnstakeStSuiValue, unstakeStSuiValueForDisplay, setUnstakeStSuiValueForDisplay,isWalletConnected} = props;
   //   const [isOpen, setIsOpen] = useState(false);
 
   //   const toggleMenu = () => {
@@ -39,7 +39,11 @@ const Unstake = (props: any) => {
             isMaxBtn={false}
           />
         </div>
-        <CommonButton text="Connect Wallet" isWalletConnected={false} />
+        <CommonButton 
+          text={isWalletConnected && unstakeStSuiValue && parseFloat(unstakeStSuiValue) > 0 ? "Unstake "+ parseFloat(unstakeStSuiValue) +" stSUI" : isWalletConnected && unstakeStSuiValue && parseFloat(unstakeStSuiValue) === 0 ? "Unstake stSUI" : "Connect Wallet"}  
+          isWalletConnected={isWalletConnected} 
+          disabled={!isWalletConnected || (unstakeStSuiValue && parseFloat(unstakeStSuiValue) === 0)}
+        />
         <div className="mt-[6.51vw] md:mt-[1.97vw]">
           <div className="flex justify-between items-center mb-[1.5vw]">
             <p className="text-black text-[3.25vw] md:text-[1.04vw] font-inter">

@@ -7,7 +7,7 @@ import Stats from "./Stats";
 import MobileStats from "./MobileStats";
 
 const Stake = (props: any) => {
-  const {mintSuiTokens} = props;
+  const {mintSuiTokens, stakeSuiValue, setStakeSuiValue, stakeSuiValueForDisplay ,setStakeSuiValueForDisplay, isWalletConnected, stakeLoader} = props;
   //   const [isOpen, setIsOpen] = useState(false);
 
   //   const toggleMenu = () => {
@@ -30,6 +30,10 @@ const Stake = (props: any) => {
             tokenName="SUI"
             tokenIcon={suiLogo}
             isMaxBtn={true}
+            setInputVal={setStakeSuiValue}
+            setInputValForDisplay={setStakeSuiValueForDisplay}
+            inputVal={stakeSuiValue}
+            inputValForDisplay={stakeSuiValueForDisplay}
           />
         </div>
         <div className="mb-[3.02vw] md:mb-[0.93vw]">
@@ -39,9 +43,16 @@ const Stake = (props: any) => {
             tokenName="stSUI"
             tokenIcon={stSuiLogo}
             isMaxBtn={false}
+            
           />
         </div>
-        <CommonButton text="Stake 2 SUI" isWalletConnected={true} />
+        <CommonButton
+          text={isWalletConnected && stakeSuiValue && parseFloat(stakeSuiValue) > 0 ? "Stake "+ parseFloat(stakeSuiValue) +" SUI" : isWalletConnected && stakeSuiValue && parseFloat(stakeSuiValue) === 0 ? "Stake SUI" : "Connect Wallet"}  isWalletConnected={isWalletConnected} 
+          disabled={!isWalletConnected || (stakeSuiValue && parseFloat(stakeSuiValue) === 0)}
+          callFunction={mintSuiTokens}
+          isLoading={stakeLoader}
+
+        />
         <div className="mt-[6.51vw] md:mt-[1.97vw]">
           <div className="flex justify-between items-center mb-[1.5vw]">
             <p className="text-black text-[3.25vw] md:text-[1.04vw] font-inter">

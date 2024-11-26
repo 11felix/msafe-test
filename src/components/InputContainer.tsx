@@ -7,6 +7,10 @@ interface InputContainerProps {
   tokenName: string;
   tokenIcon: string;
   isMaxBtn: boolean;
+  setInputVal?: any;
+  setInputValForDisplay?: any
+  inputVal?: string;
+  inputValForDisplay?: string;
 }
 
 const InputContainer: React.FC<InputContainerProps> = ({
@@ -15,6 +19,10 @@ const InputContainer: React.FC<InputContainerProps> = ({
   tokenName,
   tokenIcon,
   isMaxBtn,
+  setInputVal,
+  setInputValForDisplay,
+  inputVal,
+  inputValForDisplay
 }) => {
   const [inputValue, setInputValue] = useState<number | "">("");
   const [usdValue, setUsdValue] = useState<number>(0);
@@ -22,12 +30,16 @@ const InputContainer: React.FC<InputContainerProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value ? parseFloat(e.target.value) : "";
     setInputValue(value);
+    setInputVal(value)
+    setInputValForDisplay(value)
     setUsdValue(value ? value * 1.89 : 0);
   };
 
   const handleMaxClick = () => {
     setInputValue(balance);
     setUsdValue(balance * 1.89);
+    setInputVal(balance)
+    setInputValForDisplay(balance)
   };
 
   return (
@@ -40,7 +52,7 @@ const InputContainer: React.FC<InputContainerProps> = ({
           <div>
             <input
               type="number"
-              value={inputValue}
+              value={inputValForDisplay}
               onChange={handleInputChange}
               placeholder="0"
               className="no-spinner w-[43.1vw] md:w-[11.3vw] text-[5.81vw] md:text-[1.77vw] font-inter font-medium text-black outline-none"
