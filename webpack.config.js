@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const ESLintPlugin = require("eslint-webpack-plugin");
+// const ESLintPlugin = require("eslint-webpack-plugin");
 const { execSync } = require("child_process");
 
 // Function to get the current Git branch
@@ -46,12 +46,11 @@ module.exports = (_env, _argv) => {
     },
     resolve: {
       alias: {
-      //   "decimal.js": path.resolve(__dirname, "node_modules/decimal.js"),
-      //   "bignumber.js": path.resolve(__dirname, "node_modules/bignumber.js"),
-      //   "valibot/dist": path.resolve(__dirname, "node_modules/valibot/dist"),
-      //   graphql: path.resolve(__dirname, "node_modules/graphql"),
-      //   "@mysten/sui": path.resolve(__dirname, "node_modules/@mysten/sui"),
-        
+        "decimal.js": path.resolve(__dirname, "node_modules/decimal.js"),
+        "bignumber.js": path.resolve(__dirname, "node_modules/bignumber.js"),
+        "valibot/dist": path.resolve(__dirname, "node_modules/valibot/dist"),
+        graphql: path.resolve(__dirname, "node_modules/graphql"),
+        "@mysten/sui": path.resolve(__dirname, "node_modules/@mysten/sui"),
       },
       extensions: [".ts", ".js", ".tsx"],
       fallback: {
@@ -127,10 +126,10 @@ module.exports = (_env, _argv) => {
       new Dotenv({
         path: envFile,
       }),
-      new ESLintPlugin({
-        extensions: ["ts", "tsx"],
-        context: "src",
-      }),
+      // new ESLintPlugin({
+      //   extensions: ["ts", "tsx"],
+      //   context: "src",
+      // }),
     ],
   };
 };

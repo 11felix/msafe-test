@@ -80,6 +80,7 @@
     "bignumber.js": "^9.1.2",
     "bn.js": "^5.2.1",
     "decimal.js": "^10.4.3",
+    "eslint-import-resolver-webpack": "^0.13.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.2",

@@ -28,6 +28,9 @@
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"],
         "moduleDirectory": ["node_modules", "src/"]
+      },
+      "webpack": {
+        "config": "webpack.config.js"  // Path to your Webpack config
       }
       
     }

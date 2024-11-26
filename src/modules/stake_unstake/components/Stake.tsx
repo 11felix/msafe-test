@@ -6,7 +6,8 @@ import CommonButton from "../../../components/CommonButton";
 import Stats from "./Stats";
 import MobileStats from "./MobileStats";
 
-const Stake = () => {
+const Stake = (props: any) => {
+  const {mintSuiTokens} = props;
   //   const [isOpen, setIsOpen] = useState(false);
 
   //   const toggleMenu = () => {

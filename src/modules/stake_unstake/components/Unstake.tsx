@@ -6,7 +6,8 @@ import CommonButton from "../../../components/CommonButton";
 import Stats from "./Stats";
 import MobileStats from "./MobileStats";
 
-const Unstake: React.FC = () => {
+const Unstake = (props: any) => {
+  const {redeemSuiTokens} = props;
   //   const [isOpen, setIsOpen] = useState(false);
 
   //   const toggleMenu = () => {

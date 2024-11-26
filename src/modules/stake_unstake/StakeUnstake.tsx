@@ -8,12 +8,13 @@ import Opportunities from "./components/stSuiOpportunities";
 import Unstake from "./components/Unstake";
 import Stake from "./components/Stake";
 import downArrow from "../../assets/icons/downArrow.svg";
-import { mint, } from "stsui-sdk";
+import { mint, getSuiClient, redeem } from "stsui-sdk";
 import {
+  useCurrentAccount,
   useSignAndExecuteTransaction,
 } from "@mysten/dapp-kit";
 import { Transaction } from "@mysten/sui/transactions";
-import { getSuiClient} from "sui-alpha-sdk";
+// import { getSuiClient} from "sui-alpha-sdk";
 
 const StakeUnstake = () => {
   const [selectedTab, setSelectedTab] = useState("Stake");
@@ -21,19 +22,110 @@ const StakeUnstake = () => {
   const tabs = ["Stake", "Unstake"];
   const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction();
   const suiClient = getSuiClient();
+  const currentAccount = useCurrentAccount();
 
   const handleSelectTab = (tab: string) => {
     setSelectedTab(tab);
   };
 
   useEffect(() => {
-    stakeSuiTokens()
-  }, [])
+    if(currentAccount?.address){
+      // mintSuiTokens()
+      // redeemSuiTokens()
+    }
+  }, [currentAccount])
   
-  const stakeSuiTokens = async () => {
-    console.log("in stake func")
+  const mintSuiTokens = async () => {
+    console.log("in stake func", currentAccount?.address, suiClient)
     try {
-      const txb = await mint("1000000", {address: "0xb26c4b36f48f96a5e615c821b30fdd564dd6a047cdad8c56e61a4c47f38c4173"});
+      const txb = await mint("1000000000", {address: "0xb26c4b36f48f96a5e615c821b30fdd564dd6a047cdad8c56e61a4c47f38c4173"});
+      if (txb) {
+        signAndExecuteTransaction(
+          {
+            transaction: txb as unknown as Transaction,
+          },
+          {
+            onSuccess: async (result: any) => {
+              // if (debug) {
+              //   console.log("executed transaction block", result);
+              // }
+              // const transLink = `${transactionUrl}/${result.digest}`;
+              // setTransactionLink(transLink);
+              // const notification_obj = {
+              //   link: "",
+              //   message: `Broadcasting transaction ..`,
+              //   type: "request",
+              // };
+              // setNotificationObj(notification_obj);
+              const txbCheck = await suiClient.waitForTransaction({
+                digest: result.digest,
+                options: {
+                  showEffects: true,
+                },
+              });
+              console.log("trx status check", txbCheck);
+              // if (debug) {
+              //   console.log("trx status check", txbCheck);
+              // }
+              if (
+                txbCheck.effects &&
+                txbCheck.effects.status &&
+                txbCheck.effects.status.status
+              ) {
+                if (txbCheck.effects.status.status === "success") {
+                  // const obj = {
+                  //   link: `${transactionUrl}/${txbCheck.digest}`,
+                  //   message: `You have successfully swapped ${sendTokenValueForDisplay} ${sentToken.symbol} to ${receiveTokenValueForDisplay} ${receiveToken.symbol}.`,
+                  //   type: "success",
+                  // };
+                  // console.log("transactionLink", transactionLink, obj);
+                  // if (debug) {
+                  //   console.log("transactionLink", transactionLink, obj);
+                  // }
+                } else {
+                  // const obj = {
+                  //   link: `${transactionUrl}/${txbCheck.digest}`,
+                  //   message: `You swap of ${sendTokenValueForDisplay} ${sentToken.symbol} to ${receiveTokenValueForDisplay} ${receiveToken.symbol} has failed.`,
+                  //   type: "failed",
+                  // };
+                  // setNotificationObj(obj);
+                  // setLoadingState(false);
+                }
+              }
+            },
+
+            onError: async (result: any) => {
+              console.log("trx reject", result);
+              // if (debug) {
+              //   console.log("trx reject", result);
+              // }
+              // const obj = {
+              //   link: "",
+              //   message: `You have rejected the transaction to swap ${sendTokenValueForDisplay} ${sentToken.symbol} to ${receiveTokenValueForDisplay} ${receiveToken.symbol}`,
+              //   type: "rejected",
+              // };
+              // setLoadingState(false);
+              // setNotificationObj(obj);
+              // setTokenBalanceLoadingState(false);
+            },
+            onSettled(data, error, variables, context) {
+              console.log("trx settled", data, error, variables, context);
+              // if (debug) {
+              //   console.log("trx settled", data, error, variables, context);
+              // }
+            },
+          }
+        );
+      }
+    } catch(error){
+      console.log("error", error)
+    }
+  }
+
+  const redeemSuiTokens = async () => {
+    console.log("in stake func", currentAccount?.address, suiClient)
+    try {
+      const txb = await redeem("1000000000", {address: "0xb26c4b36f48f96a5e615c821b30fdd564dd6a047cdad8c56e61a4c47f38c4173"});
       if (txb) {
         signAndExecuteTransaction(
           {
@@ -138,7 +230,7 @@ const StakeUnstake = () => {
             ))}
           </div>
           <div className="pb-[3.5vw]">
-            {selectedTab === "Stake" ? <Stake /> : <Unstake />}
+            {selectedTab === "Stake" ? <Stake mintSuiTokens={mintSuiTokens} /> : <Unstake redeemSuiTokens={redeemSuiTokens} />}
           </div>
         </div>
 
