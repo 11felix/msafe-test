@@ -11,6 +11,8 @@ interface InputContainerProps {
   setInputValForDisplay?: any
   inputVal?: string;
   inputValForDisplay?: string;
+  userTokenBalancesArray?: any;
+  stSuiExchangeRateValue?: string;
 }
 
 const InputContainer: React.FC<InputContainerProps> = ({
@@ -22,22 +24,55 @@ const InputContainer: React.FC<InputContainerProps> = ({
   setInputVal,
   setInputValForDisplay,
   inputVal,
-  inputValForDisplay
+  inputValForDisplay,
+  userTokenBalancesArray,
+  stSuiExchangeRateValue
 }) => {
   const [inputValue, setInputValue] = useState<number | "">("");
   const [usdValue, setUsdValue] = useState<number>(0);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value ? parseFloat(e.target.value) : "";
-    setInputValue(value);
-    setInputVal(value)
-    setInputValForDisplay(value)
-    setUsdValue(value ? value * 1.89 : 0);
+    if(title === "Stake SUI" && tokenName.toLowerCase() === "sui"){
+      setInputValue(value);
+      setInputVal(value)
+      setInputValForDisplay(value)
+      if(tokenName.toLowerCase() === "stsui"){
+        const stsuiValue = value && stSuiExchangeRateValue ? value / parseFloat(stSuiExchangeRateValue) : 0 ;
+        const price = userTokenBalancesArray.stsui ? userTokenBalancesArray.stsui.price : 0
+        setUsdValue(stsuiValue * price);
+        setInputValue(stsuiValue);
+        setInputVal(stsuiValue)
+        setInputValForDisplay(stsuiValue)
+      }
+    } else if(title === "Stake SUI" && tokenName.toLowerCase() === "stsui") {
+      const stSuiReceived = value && stSuiExchangeRateValue ? (value / parseFloat(stSuiExchangeRateValue)).toFixed(4) : 0
+    }
+    if(title === "Unstake SUI" && tokenName.toLowerCase() === "stsui"){
+      setInputValue(value);
+      setInputVal(value)
+      setInputValForDisplay(value)
+      if(tokenName.toLowerCase() === "sui"){
+        const price = userTokenBalancesArray.sui ? userTokenBalancesArray.sui.price : 0
+        const suiValue = value && stSuiExchangeRateValue ? value / parseFloat(stSuiExchangeRateValue) : 0 ;
+        setUsdValue(suiValue * price);
+        setInputValue(suiValue);
+        setInputVal(suiValue)
+        setInputValForDisplay(value)
+      }
+    } else if(title === "Unstake SUI" && tokenName.toLowerCase() === "sui") {
+      const suiReceived = value && stSuiExchangeRateValue ? (value * parseFloat(stSuiExchangeRateValue)).toFixed(4) : 0
+    }
   };
 
   const handleMaxClick = () => {
     setInputValue(balance);
-    setUsdValue(balance * 1.89);
+    // setUsdValue(balance * 1.89);
+    if(tokenName.toLowerCase() === "sui"){
+      setUsdValue(balance ? balance * userTokenBalancesArray.sui.price : 0);
+    } else {
+      setUsdValue(balance && stSuiExchangeRateValue ? balance * userTokenBalancesArray.sui.price / parseFloat(stSuiExchangeRateValue) : 0);
+    }
     setInputVal(balance)
     setInputValForDisplay(balance)
   };

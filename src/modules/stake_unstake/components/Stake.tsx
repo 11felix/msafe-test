@@ -3,11 +3,9 @@ import InputContainer from "../../../components/InputContainer";
 import stSuiLogo from "../../../assets/icons/stSuiLogo.svg";
 import suiLogo from "../../../assets/icons/suiLogo.svg";
 import CommonButton from "../../../components/CommonButton";
-import Stats from "./Stats";
-import MobileStats from "./MobileStats";
 
 const Stake = (props: any) => {
-  const {mintSuiTokens, stakeSuiValue, setStakeSuiValue, stakeSuiValueForDisplay ,setStakeSuiValueForDisplay, isWalletConnected, stakeLoader} = props;
+  const {mintSuiTokens, stakeSuiValue, setStakeSuiValue, stakeSuiValueForDisplay ,setStakeSuiValueForDisplay, isWalletConnected, stakeLoader, userTokenBalancesArray, stSuiExchangeRateValue} = props;
   //   const [isOpen, setIsOpen] = useState(false);
 
   //   const toggleMenu = () => {
@@ -26,7 +24,7 @@ const Stake = (props: any) => {
         <div className="mb-[3.02vw] md:mb-[0.93vw]">
           <InputContainer
             title="Stake SUI"
-            balance={10000.5}
+            balance={userTokenBalancesArray && userTokenBalancesArray.sui ? userTokenBalancesArray.sui.balance : 0}
             tokenName="SUI"
             tokenIcon={suiLogo}
             isMaxBtn={true}
@@ -34,16 +32,23 @@ const Stake = (props: any) => {
             setInputValForDisplay={setStakeSuiValueForDisplay}
             inputVal={stakeSuiValue}
             inputValForDisplay={stakeSuiValueForDisplay}
+            userTokenBalancesArray={userTokenBalancesArray}
+            stSuiExchangeRateValue={stSuiExchangeRateValue}
           />
         </div>
         <div className="mb-[3.02vw] md:mb-[0.93vw]">
           <InputContainer
             title="Receive"
-            balance={10000.5}
+            balance={userTokenBalancesArray && userTokenBalancesArray.stsui ? userTokenBalancesArray.stsui.balance : 0}
             tokenName="stSUI"
             tokenIcon={stSuiLogo}
             isMaxBtn={false}
-            
+            // setInputVal={setStakeSuiValue}
+            // setInputValForDisplay={setStakeSuiValueForDisplay}
+            // inputVal={stakeSuiValue}
+            // inputValForDisplay={stakeSuiValueForDisplay}
+            userTokenBalancesArray={userTokenBalancesArray}
+            stSuiExchangeRateValue={stSuiExchangeRateValue}
           />
         </div>
         <CommonButton
@@ -59,7 +64,7 @@ const Stake = (props: any) => {
               Exchange rate
             </p>
             <p className="text-black text-[3.25vw] md:text-[1.04vw] font-inter font-semibold">
-              1SUI=1stSUI
+              1SUI={stSuiExchangeRateValue ? parseFloat(stSuiExchangeRateValue).toFixed(4): 1}stSUI
             </p>
           </div>
           <div className="flex justify-between items-center mb-[1.5vw]">
@@ -80,12 +85,7 @@ const Stake = (props: any) => {
           </div>
         </div>
       </div>
-      <div className="hidden md:block absolute right-[-7vw] bottom-0">
-        <Stats />
-      </div>
-      <div className="md:hidden ">
-        <MobileStats />
-      </div>
+      
     </div>
   );
 };

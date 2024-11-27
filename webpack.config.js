@@ -1,6 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 // const ESLintPlugin = require("eslint-webpack-plugin");
 const { execSync } = require("child_process");
@@ -19,23 +18,6 @@ function getCurrentBranch() {
 }
 
 module.exports = (_env, _argv) => {
-  let envFile;
-  const branch = getCurrentBranch();
-
-  switch (branch) {
-    case "main":
-      envFile = "./.env.development";
-      break;
-    case "production":
-      envFile = "./.env.production";
-      break;
-    case "staging":
-      envFile = "./.env.staging";
-      break;
-    default:
-      envFile = "./.env";
-      console.log(`Unknown branch '${branch}', using default directory.`);
-  }
 
   return {
     entry: "./src/index.tsx",
@@ -46,29 +28,26 @@ module.exports = (_env, _argv) => {
     },
     resolve: {
       alias: {
-        "decimal.js": path.resolve(__dirname, "node_modules/decimal.js"),
-        "bignumber.js": path.resolve(__dirname, "node_modules/bignumber.js"),
-        "valibot/dist": path.resolve(__dirname, "node_modules/valibot/dist"),
-        graphql: path.resolve(__dirname, "node_modules/graphql"),
+        // "valibot/dist": path.resolve(__dirname, "node_modules/valibot/dist"),
         "@mysten/sui": path.resolve(__dirname, "node_modules/@mysten/sui"),
       },
       extensions: [".ts", ".js", ".tsx"],
       fallback: {
         fs: false,
-        assert: require.resolve("assert/"),
-        buffer: require.resolve("buffer"),
-        http: require.resolve("stream-http"),
-        https: require.resolve("https-browserify"),
-        os: require.resolve("os-browserify/browser"),
-        path: require.resolve("path-browserify"),
-        stream: require.resolve("stream-browserify"),
-        tty: require.resolve("tty-browserify"),
-        url: require.resolve("url/"),
-        util: require.resolve("util/"),
-        crypto: require.resolve("crypto-browserify"),
-        zlib: require.resolve("browserify-zlib"),
-        vm: require.resolve("vm-browserify"),
-        process: require.resolve("process/browser"),
+        // assert: require.resolve("assert/"),
+        // buffer: require.resolve("buffer"),
+        // http: require.resolve("stream-http"),
+        // https: require.resolve("https-browserify"),
+        // os: require.resolve("os-browserify/browser"),
+        // path: require.resolve("path-browserify"),
+        // stream: require.resolve("stream-browserify"),
+        // tty: require.resolve("tty-browserify"),
+        // url: require.resolve("url/"),
+        // util: require.resolve("util/"),
+        // crypto: require.resolve("crypto-browserify"),
+        // zlib: require.resolve("browserify-zlib"),
+        // vm: require.resolve("vm-browserify"),
+        // process: require.resolve("process/browser"),
       },
     },
     module: {
@@ -108,7 +87,7 @@ module.exports = (_env, _argv) => {
         directory: path.join(__dirname, "dist"),
       },
       compress: true,
-      port: 3000,
+      port: 3001,
       open: true,
       historyApiFallback: true,
     },
@@ -123,9 +102,7 @@ module.exports = (_env, _argv) => {
           { from: "src/assets", to: "assets" },
         ],
       }),
-      new Dotenv({
-        path: envFile,
-      }),
+      
       // new ESLintPlugin({
       //   extensions: ["ts", "tsx"],
       //   context: "src",

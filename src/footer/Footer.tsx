@@ -18,45 +18,7 @@ const Footer = () => {
 
   return (
     <footer className="flex flex-col">
-      <div className="bg-black pt-[16vw] md:pt-[4.06vw] pb-[21.86vw] md:pb-[4.87vw] flex flex-col justify-center w-full">
-        <div className="mx-auto">
-          <img
-            src={safeLock}
-            alt="lock"
-            className="w-[6.35vw] h-[7.82] md:h-[2.01vw] md:w-[1.63vw]"
-          />
-        </div>
-        <div className="flex justify-center items-center">
-          <div className="flex flex-col justify-center items-center mr-[8vw] md:mr-[3.94vw]">
-            <p className="text-white text-[4.18vw] md:text-[1.45vw] font-poppins font-medium mb-[3.02vw] md:mb-[0.64vw]">
-              Audited by
-            </p>
-            <div className="border rounded-[2.55vw] md:rounded-[0.93vw] py-[3.2vw] md:py-[0.88vw] px-[5vw] md:px-[2.15vw] text-white">
-              <a href={movebitLink} target="_blank" rel="noreferrer" className="">
-              <img
-                src={movebit}
-                alt="movebit"
-                className="w-[17.27] h-[5vw] md:h-[1.47vw] md:w-[7.24vw]"
-              />
-              </a>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center items-center">
-            <p className="text-white text-[4.18vw] md:text-[1.45vw] font-poppins font-medium mb-[3.02vw] md:mb-[0.64vw]">
-              Secured by
-            </p>
-            <div className="border rounded-[2.55vw] md:rounded-[0.93vw] py-[2vw] md:py-[0.54vw] px-[4vw] md:px-[1.41vw] text-white">
-              <a href={zeroshadowLink} target="_blank" rel="noreferrer" className="">
-              <img
-                src={zeroShadow}
-                alt="zeroShadow"
-                className="w-[20.27] h-[7.2vw] md:h-[2.14vw] md:w-[8.72vw]"
-              />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <div className="bg-white py-[20vw] md:px-[112px] md:py-[40px]">
         <div className="flex flex-col md:flex-row md:justify-between space-y-6 md:space-y-0">
           <div className="flex flex-col justify-center items-center md:items-start md:w-[33%]">

@@ -3,11 +3,9 @@ import InputContainer from "../../../components/InputContainer";
 import stSuiLogo from "../../../assets/icons/stSuiLogo.svg";
 import suiLogo from "../../../assets/icons/suiLogo.svg";
 import CommonButton from "../../../components/CommonButton";
-import Stats from "./Stats";
-import MobileStats from "./MobileStats";
 
 const Unstake = (props: any) => {
-  const {redeemSuiTokens, unstakeStSuiValue, setUnstakeStSuiValue, unstakeStSuiValueForDisplay, setUnstakeStSuiValueForDisplay,isWalletConnected} = props;
+  const {redeemSuiTokens, unstakeStSuiValue, setUnstakeStSuiValue, unstakeStSuiValueForDisplay, setUnstakeStSuiValueForDisplay,isWalletConnected, unstakeLoader, userTokenBalancesArray, stSuiExchangeRateValue} = props;
   //   const [isOpen, setIsOpen] = useState(false);
 
   //   const toggleMenu = () => {
@@ -24,16 +22,22 @@ const Unstake = (props: any) => {
         <div className="mb-[3.02vw] md:mb-[0.93vw]">
           <InputContainer
             title="Unstake SUI"
-            balance={10000.5}
+            balance={userTokenBalancesArray && userTokenBalancesArray.stsui ? userTokenBalancesArray.stsui.balance : 0}
             tokenName="stSUI"
             tokenIcon={stSuiLogo}
             isMaxBtn={true}
+            setInputVal={setUnstakeStSuiValue}
+            setInputValForDisplay={setUnstakeStSuiValueForDisplay}
+            inputVal={unstakeStSuiValue}
+            inputValForDisplay={unstakeStSuiValueForDisplay}
+            userTokenBalancesArray={userTokenBalancesArray}
+            stSuiExchangeRateValue={stSuiExchangeRateValue}
           />
         </div>
         <div className="mb-[3.02vw] md:mb-[0.93vw]">
           <InputContainer
             title="Receive"
-            balance={10000.5}
+            balance={userTokenBalancesArray && userTokenBalancesArray.sui ? userTokenBalancesArray.sui.balance : 0}
             tokenName="SUI"
             tokenIcon={suiLogo}
             isMaxBtn={false}
@@ -43,6 +47,8 @@ const Unstake = (props: any) => {
           text={isWalletConnected && unstakeStSuiValue && parseFloat(unstakeStSuiValue) > 0 ? "Unstake "+ parseFloat(unstakeStSuiValue) +" stSUI" : isWalletConnected && unstakeStSuiValue && parseFloat(unstakeStSuiValue) === 0 ? "Unstake stSUI" : "Connect Wallet"}  
           isWalletConnected={isWalletConnected} 
           disabled={!isWalletConnected || (unstakeStSuiValue && parseFloat(unstakeStSuiValue) === 0)}
+          callFunction={redeemSuiTokens}
+          isLoading={unstakeLoader}
         />
         <div className="mt-[6.51vw] md:mt-[1.97vw]">
           <div className="flex justify-between items-center mb-[1.5vw]">
@@ -62,12 +68,6 @@ const Unstake = (props: any) => {
             </p>
           </div>
         </div>
-      </div>
-      <div className="hidden md:block absolute right-[-7vw] bottom-0">
-        <Stats />
-      </div>
-      <div className="md:hidden ">
-        <MobileStats />
       </div>
     </div>
   );

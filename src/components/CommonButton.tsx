@@ -18,7 +18,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
   isLoading
 }) => {
   const [walletConnected, setWalletConnected] = useState(false);
-  console.log("sui stake function", disabled, callFunction)
+  // console.log("sui stake function", disabled, callFunction)
   useEffect(() => {
     setWalletConnected(isWalletConnected);
   }, [walletConnected]);

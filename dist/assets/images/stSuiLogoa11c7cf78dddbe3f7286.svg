@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.296" y1="1" x2="0.091" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2d9eff"/>
+      <stop offset="1" stop-color="#ffb6f8"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="1.264" y1="1" x2="-0.101" y2="1" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="1" y1="0.539" x2="0" y2="0.551" xlink:href="#linear-gradient"/>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_9405" data-name="Rectangle 9405" width="28.275" height="45.171" fill="url(#linear-gradient)"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_9406" data-name="Rectangle 9406" width="29.937" height="35.769" fill="url(#linear-gradient-2)"/>
+    </clipPath>
+  </defs>
+  <g id="Group_28790" data-name="Group 28790" transform="translate(-129 -51)">
+    <circle id="Ellipse_1386" data-name="Ellipse 1386" cx="40" cy="40" r="40" transform="translate(129 51)" opacity="0.227" fill="url(#linear-gradient-3)"/>
+    <g id="Group_28548" data-name="Group 28548" transform="translate(148 64.586)">
+      <g id="Group_28544" data-name="Group 28544" transform="translate(13.069 0)">
+        <g id="Group_28543" data-name="Group 28543" clip-path="url(#clip-path)">
+          <path id="Path_19411" data-name="Path 19411" d="M23.784,19.017a20.547,20.547,0,0,1,4.491,12.846,20.7,20.7,0,0,1-4.616,13l-.25.307-.065-.389c-.057-.329-.122-.664-.2-1-1.445-6.348-6.152-11.79-13.9-16.2C4.015,24.615,1.02,21.044.233,16.982a15.26,15.26,0,0,1,.6-7.523A17.147,17.147,0,0,1,3.569,4.17L6.584.485a1.322,1.322,0,0,1,2.047,0L23.787,19.017Z" transform="translate(0 0)" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+        </g>
+      </g>
+      <g id="Group_28546" data-name="Group 28546" transform="translate(0 16.726)">
+        <g id="Group_28545" data-name="Group 28545" clip-path="url(#clip-path-2)">
+          <path id="Path_19412" data-name="Path 19412" d="M4.562,2.211,6.368,0l.054.409c.043.324.1.647.159.974C7.75,7.517,11.926,12.63,18.907,16.59c6.069,3.455,9.6,7.427,10.62,11.781a15.14,15.14,0,0,1,.315,5.169l-.011.1-.088.043A20.647,20.647,0,0,1,4.556,2.206Z" fill-rule="evenodd" fill="url(#linear-gradient-2)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
