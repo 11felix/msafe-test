@@ -37,31 +37,13 @@ const InputContainer: React.FC<InputContainerProps> = ({
       setInputValue(value);
       setInputVal(value)
       setInputValForDisplay(value)
-      if(tokenName.toLowerCase() === "stsui"){
-        const stsuiValue = value && stSuiExchangeRateValue ? value / parseFloat(stSuiExchangeRateValue) : 0 ;
-        const price = userTokenBalancesArray.stsui ? userTokenBalancesArray.stsui.price : 0
-        setUsdValue(stsuiValue * price);
-        setInputValue(stsuiValue);
-        setInputVal(stsuiValue)
-        setInputValForDisplay(stsuiValue)
-      }
-    } else if(title === "Stake SUI" && tokenName.toLowerCase() === "stsui") {
-      const stSuiReceived = value && stSuiExchangeRateValue ? (value / parseFloat(stSuiExchangeRateValue)).toFixed(4) : 0
+      setUsdValue(value && userTokenBalancesArray.sui ? userTokenBalancesArray.sui.price * value : 0);
     }
     if(title === "Unstake SUI" && tokenName.toLowerCase() === "stsui"){
       setInputValue(value);
       setInputVal(value)
       setInputValForDisplay(value)
-      if(tokenName.toLowerCase() === "sui"){
-        const price = userTokenBalancesArray.sui ? userTokenBalancesArray.sui.price : 0
-        const suiValue = value && stSuiExchangeRateValue ? value / parseFloat(stSuiExchangeRateValue) : 0 ;
-        setUsdValue(suiValue * price);
-        setInputValue(suiValue);
-        setInputVal(suiValue)
-        setInputValForDisplay(value)
-      }
-    } else if(title === "Unstake SUI" && tokenName.toLowerCase() === "sui") {
-      const suiReceived = value && stSuiExchangeRateValue ? (value * parseFloat(stSuiExchangeRateValue)).toFixed(4) : 0
+      setUsdValue(value && userTokenBalancesArray.sui && stSuiExchangeRateValue ? userTokenBalancesArray.sui.price * value / parseFloat(stSuiExchangeRateValue) : 0);
     }
   };
 
@@ -116,7 +98,7 @@ const InputContainer: React.FC<InputContainerProps> = ({
         </div>
         <div className="flex justify-between w-full">
           <div>
-            {inputValue && (
+            {inputVal && usdValue > 0 && (
               <div className="text-[#829CB2] font-inter font-medium text-[2.79vw] md:text-[0.88vw]">
                 ${usdValue.toFixed(2)}
               </div>

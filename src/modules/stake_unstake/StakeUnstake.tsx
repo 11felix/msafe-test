@@ -163,6 +163,7 @@ const StakeUnstake = () => {
     try {
       const user_token_balances = await fetchUserBalanceArray(currentAccount?.address)
       setUserTokenBalancesArray(user_token_balances)
+      console.log("user_token_balances", user_token_balances)
     } catch(error){
       console.log("error", error)
     }

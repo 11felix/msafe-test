@@ -41,6 +41,10 @@ const Unstake = (props: any) => {
             tokenName="SUI"
             tokenIcon={suiLogo}
             isMaxBtn={false}
+            inputVal={unstakeStSuiValue && stSuiExchangeRateValue ? (unstakeStSuiValue * parseFloat(stSuiExchangeRateValue)).toString() : "0"}
+            inputValForDisplay={unstakeStSuiValue && unstakeStSuiValue > 0 && stSuiExchangeRateValue ? ((unstakeStSuiValue * parseFloat(stSuiExchangeRateValue)).toFixed(4)).toString() : "0"}
+            userTokenBalancesArray={userTokenBalancesArray}
+            stSuiExchangeRateValue={stSuiExchangeRateValue}
           />
         </div>
         <CommonButton 

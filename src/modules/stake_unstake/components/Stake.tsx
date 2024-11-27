@@ -45,8 +45,8 @@ const Stake = (props: any) => {
             isMaxBtn={false}
             // setInputVal={setStakeSuiValue}
             // setInputValForDisplay={setStakeSuiValueForDisplay}
-            // inputVal={stakeSuiValue}
-            // inputValForDisplay={stakeSuiValueForDisplay}
+            inputVal={stakeSuiValue && stSuiExchangeRateValue ? (stakeSuiValue / parseFloat(stSuiExchangeRateValue)).toString() : "0"}
+            inputValForDisplay={stakeSuiValue && stakeSuiValue > 0 && stSuiExchangeRateValue ? ((stakeSuiValue / parseFloat(stSuiExchangeRateValue)).toFixed(4)).toString() : "0"}
             userTokenBalancesArray={userTokenBalancesArray}
             stSuiExchangeRateValue={stSuiExchangeRateValue}
           />
@@ -65,14 +65,6 @@ const Stake = (props: any) => {
             </p>
             <p className="text-black text-[3.25vw] md:text-[1.04vw] font-inter font-semibold">
               1SUI={stSuiExchangeRateValue ? parseFloat(stSuiExchangeRateValue).toFixed(4): 1}stSUI
-            </p>
-          </div>
-          <div className="flex justify-between items-center mb-[1.5vw]">
-            <p className="text-black text-[3.25vw] md:text-[1.04vw] font-inter">
-              Staking fee
-            </p>
-            <p className="text-black text-[3.25vw] md:text-[1.04vw] font-inter font-semibold">
-              0.00%
             </p>
           </div>
           <div className="flex justify-between items-center">
