@@ -94,31 +94,9 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="flex items-center justify-between px-3 md:px-[5.83vw] py-4 md:py-[1.82vw] bg-[#E9EFF4] text-black relative">
-      <div className="flex items-center md:ml-[1.45vw]">
-        <img
-          src={stSuiLogo}
-          alt="Logo"
-          className="h-10 w-10 md:h-[4.16vw] md:w-[4.16vw] rounded-full"
-        />
-        <span className="font-poppins font-medium text-xl md:text-[1.77vw] ml-4 md:ml-[1.04vw]">
-          stSUI
-        </span>
-      </div>
+    <header className="flex items-center justify-end px-3 md:px-[5.83vw] py-4 md:py-[1.82vw]  text-black relative">
 
-      <div className="hidden md:flex items-center">
-        <a
-          href="#link1"
-          className="hover:text-[#73A6FC] text-[0.937vw] mr-[2.76vw] font-poppins font-bold"
-        >
-          ALPHA FI
-        </a>
-        <a
-          href="#link2"
-          className="hover:text-[#73A6FC] text-[0.937vw] mr-[2.76vw] font-poppins font-bold"
-        >
-          DOCS
-        </a>
+      <div className="hidden md:flex items-center justify-end">
         {currentAccount && currentAccount.address ?
           <button
             onClick={() => setShowDisconnectPopup(!showDisconnectPopup)}
@@ -155,7 +133,7 @@ const Header: React.FC = () => {
             />
         }
         {
-          showDisconnectPopup && 
+          showDisconnectPopup &&
           <div className="flex flex-col right-[5.8vw] top-[6vw] absolute bg-[#FFFFFF] shadow-[0 0.052vw 0.416vw #2D9EFF1A] w-fit h-fit p-[1.24vw] rounded-[0.729vw]" ref={walletPopUpRef}>
             <p className="font-intermedium text-[#829CB2] text-[0.8854vw]">Connected</p>
             <div className="flex flex-row items-center mt-[0.52vw]">
