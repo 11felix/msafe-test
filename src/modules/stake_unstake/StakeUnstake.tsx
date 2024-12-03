@@ -20,9 +20,12 @@ function StakeUnstake() {
   }, []);
 
   return (
-    <div className="text-red-800">
-      Admin
-    </div>
+    <>
+      <div className="text-red-800">
+        Admin
+      </div>
+    </>
+
   );
 }
 
