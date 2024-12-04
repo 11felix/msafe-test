@@ -21,7 +21,7 @@ function StakeUnstake() {
 
   return (
     <>
-      <div className="text-red-800">
+      <div className="bg-gray-200 h-screen px-8 py-4 mx-auto">
         Admin
       </div>
     </>
