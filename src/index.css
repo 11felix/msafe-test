@@ -57,3 +57,12 @@ code {
   font-family: "PoppinsSemiBold";
   src: url("./assets/fonts/PoppinsSemiBold.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "PoppinsBold";
+  src: url("./assets/fonts/poppins_bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "NatoSansBold";
+  src: url("./assets/fonts/NotoSans-Bold.ttf") format("truetype");
+}

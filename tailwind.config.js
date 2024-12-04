@@ -13,6 +13,8 @@ module.exports = {
         poppinslight: ["PoppinsLight", "sans-serif"],
         intersemibold: ["InterSemiBold", "sans-serif"],
         poppinsregular: ["PoppinsRegular", "sans-serif"],
+        poppinsbold: ["PoppinsBold", "sans-serif"],
+        natosansbold: ["NatoSansBold", "sans-serif"],
       },
       keyframes: {
         "slide-in": {
