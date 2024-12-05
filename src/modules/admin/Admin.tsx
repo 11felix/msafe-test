@@ -4,6 +4,7 @@ import { getAlphaPrice } from "sui-alpha-sdk";
 import { getAllDoubleAssetVaults } from "../../../../AlphaFi/alphafi-sdk/dist/cjs/getAllVaults";
 import PriceToTick from "./components/PriceToTick";
 import MergeCoins from "./components/MergeCoins";
+import Rebalance from "./components/Rebalance";
 
 function Admin() {
   // const currentAccount = useCurrentAccount();
@@ -26,6 +27,7 @@ function Admin() {
   return (
     <>
       <div className="bg-[#F4F6FA] h-screen px-8 py-4 mx-auto">
+        <Rebalance />
         <PriceToTick />
         <MergeCoins />
       </div>
