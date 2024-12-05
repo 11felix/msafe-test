@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-// import {useCurrentAccount} from "@mysten/dapp-kit";
 import { getAlphaPrice } from "sui-alpha-sdk";
-import { getAllDoubleAssetVaults } from "../../../../AlphaFi/alphafi-sdk/dist/cjs/getAllVaults";
+import { getAllDoubleAssetVaults } from "@alphafi/alphafi-sdk";
 import PriceToTick from "./components/PriceToTick";
 import MergeCoins from "./components/MergeCoins";
 import Rebalance from "./components/Rebalance";
@@ -11,12 +10,6 @@ function Admin() {
   const a = getAllDoubleAssetVaults();
   console.log("a", a);
   useEffect(() => {
-    // getAlphaPrice(true).then((data) => {
-    //   console.log("data1", data);
-    // });
-    // getLatestPrices(["SUI/USD"],true).then((data) => {
-    //   console.log(data);
-    // });
     const test = async () => {
       const data = await getAlphaPrice(true);
       console.log("data2", data);
