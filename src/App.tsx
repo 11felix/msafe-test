@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./header/Header";
 // import Footer from "./footer/Footer";
-import StakeUnstake from "./modules/stake_unstake";
+import Admin from "./modules/admin";
 
 const App = () => {
   return (
@@ -10,7 +10,7 @@ const App = () => {
       <Router>
         <Header />
         <Routes>
-          <Route index element={<StakeUnstake />} />
+          <Route index element={<Admin />} />
         </Routes>
         {/*<Footer />*/}
       </Router>
