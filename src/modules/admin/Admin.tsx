@@ -27,7 +27,7 @@ function Admin() {
   return (
     <>
       <div className="bg-[#F4F6FA] px-[14.58vw] pb-20">
-        <div className="flex justify-between  py-4 mx-auto">
+        <div className="flex justify-center gap-[2.44vw] py-4">
           <div>
             <Rebalance />
           </div>
