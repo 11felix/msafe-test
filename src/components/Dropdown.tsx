@@ -2,67 +2,54 @@ import React, { useState, useRef, useEffect } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { getTokenIcon } from "../components/tokenIconList";
+import { getAllDoubleAssetVaults } from "@alphafi/alphafi-sdk";
 
-interface DropdownItem {
-  id: number;
+interface Vault {
+  name: string;
   name1: string;
   name2: string;
-  icon: JSX.Element;
-  label: string;
 }
 
 const Dropdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<DropdownItem | null>(null);
+  const [selectedItem, setSelectedItem] = useState<Vault | null>(null);
+  const [vaults, setVaults] = useState<Vault[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const items: DropdownItem[] = [
-    {
-      id: 1,
-      name1: "ALPHA",
-      name2: "SUI",
-      icon: (
-        <div className="flex items-center">
-          <img src={getTokenIcon("alpha")} className="w-[1.35vw] h-[1.35vw]" />
-          <img
-            src={getTokenIcon("sui")}
-            className="w-[1.35vw] h-[1.35vw] ml-[-0.25vw]"
-          />
-        </div>
-      ),
-      label: "ALPHA-SUI",
-    },
-    {
-      id: 2,
-      name1: "WSOL",
-      name2: "WBTC",
-      icon: (
-        <div className="flex items-center">
-          <img src={getTokenIcon("wsol")} className="w-[1.35vw] h-[1.35vw]" />
-          <img
-            src={getTokenIcon("wbtc")}
-            className="w-[1.35vw] h-[1.35vw] ml-[-0.25vw]"
-          />
-        </div>
-      ),
-      label: "WSOL-WBTC",
-    },
-    {
-      id: 3,
-      name1: "USDC",
-      name2: "usdt",
-      icon: (
-        <div className="flex items-center">
-          <img src={getTokenIcon("usdc")} className="w-[1.35vw] h-[1.35vw]" />
-          <img
-            src={getTokenIcon("usdt")}
-            className="w-[1.35vw] h-[1.35vw] ml-[-0.25vw]"
-          />
-        </div>
-      ),
-      label: "USDC-USDT",
-    },
-  ];
+  useEffect(() => {
+    const fetchVaults = async () => {
+      try {
+        const data: string[] = await getAllDoubleAssetVaults();
+        // console.log("DATA-->>", data);
+        const formattedVaults = data.map((item) => {
+          const parts = item.split("-");
+          if (parts.length === 3) {
+            return {
+              name: item,
+              name1: parts[1],
+              name2: parts[2],
+            };
+          } else if (parts.length === 2) {
+            return {
+              name: item,
+              name1: parts[0],
+              name2: parts[1],
+            };
+          } else {
+            throw new Error(`Unexpected format: ${item}`);
+          }
+        });
+
+        setVaults(formattedVaults);
+      } catch (error) {
+        console.error("Error fetching or formatting vaults:", error);
+      }
+    };
+
+    fetchVaults();
+  }, []);
+
+  // console.log("VAULTS--->>>>", vaults);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -80,7 +67,7 @@ const Dropdown: React.FC = () => {
     };
   }, []);
 
-  const handleSelect = (item: DropdownItem) => {
+  const handleSelect = (item: Vault) => {
     setSelectedItem(item);
     setIsOpen(false);
   };
@@ -90,7 +77,7 @@ const Dropdown: React.FC = () => {
       <div>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex w-full justify-center items-center rounded-[0.256vw] bg-[#F4F6FA] px-[1.04vw] py-[0.256vw] text-[0.88vw] font-bold text-[#222F3B] cursor-pointer focus:outline-none"
+          className="flex w-fit justify-center items-center rounded-[0.256vw] bg-[#F4F6FA] px-[1.04vw] py-[0.256vw] text-[0.88vw] font-bold text-[#222F3B] cursor-pointer focus:outline-none"
         >
           {selectedItem ? (
             <>
@@ -104,7 +91,7 @@ const Dropdown: React.FC = () => {
                   className="w-[1.35vw] h-[1.35vw] ml-[-0.25vw]"
                 />
               </div>
-              {selectedItem.label}
+              {selectedItem.name}
             </>
           ) : (
             <>
@@ -116,16 +103,27 @@ const Dropdown: React.FC = () => {
       </div>
 
       {isOpen && (
-        <div className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="absolute left-0 z-10 mt-1 w-fit h-[30vw] overflow-y-scroll origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            {items.map((item) => (
+            {vaults.map((vault, index) => (
               <button
-                key={item.id}
-                onClick={() => handleSelect(item)}
+                key={index}
+                onClick={() => handleSelect(vault)}
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
               >
-                <span className="mr-[0.83vw]">{item.icon}</span>
-                {item.label}
+                <span className="mr-[0.83vw]">
+                  <div className="flex items-center">
+                    <img
+                      src={getTokenIcon(vault.name1)}
+                      className="w-[1.35vw] h-[1.35vw]"
+                    />
+                    <img
+                      src={getTokenIcon(vault.name2)}
+                      className="w-[1.35vw] h-[1.35vw] ml-[-0.25vw]"
+                    />
+                  </div>
+                </span>
+                {vault.name}
               </button>
             ))}
           </div>

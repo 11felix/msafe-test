@@ -17,7 +17,7 @@ function PriceToTick(props: Props) {
             </label>
             <input
               type="number"
-              className="w-[13.697vw] h-[2.08vw] border rounded-[0.364vw] no-spinner px-[0.45vw] font-poppinsbold text-[1.145vw] focus:outline-none focus:ring-0 leading-[1.145vw] text-[#222F3B]"
+              className="w-[13.697vw] bg-[#F4F6FA] rounded-[0.364vw] no-spinner px-[1.04vw] pt-[0.20vw] pb-[0.26vw] font-poppinsbold text-[1.145vw] focus:outline-none focus:ring-0 leading-[1.145vw] text-[#222F3B]"
             />
           </div>
           <button className="w-[13.697vw] h-[3.541vw] text-[1.25vw] text-center items-center rounded-[0.677vw] bg-[#3D5060] mt-[1.562vw] text-white font-poppinsbold">
@@ -31,7 +31,7 @@ function PriceToTick(props: Props) {
             </label>
             <input
               type="number"
-              className="w-[13.697vw] h-[2.08vw] border rounded-[0.364vw] no-spinner px-[0.45vw] font-poppinsbold text-[1.145vw] focus:outline-none focus:ring-0 text-[#222F3B]"
+              className="w-[13.697vw] bg-[#F4F6FA] rounded-[0.364vw] no-spinner px-[1.04vw] pt-[0.20vw] pb-[0.26vw] font-poppinsbold text-[1.145vw] focus:outline-none focus:ring-0 text-[#222F3B]"
             />
           </div>
           <button className="w-[13.697vw] h-[3.541vw] text-[1.25vw] text-center items-center rounded-[0.677vw] bg-[#3D5060] mt-[1.562vw] text-white font-poppinsbold">
