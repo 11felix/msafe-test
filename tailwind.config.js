@@ -15,6 +15,7 @@ module.exports = {
         poppinsregular: ["PoppinsRegular", "sans-serif"],
         poppinsbold: ["PoppinsBold", "sans-serif"],
         natosansbold: ["NatoSansBold", "sans-serif"],
+        natosansregular: ["NatoSansRegular", "sans-serif"],
       },
       keyframes: {
         "slide-in": {

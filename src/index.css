@@ -66,3 +66,7 @@ code {
   font-family: "NatoSansBold";
   src: url("./assets/fonts/NotoSans-Bold.ttf") format("truetype");
 }
+@font-face {
+  font-family: "NatoSansRegular";
+  src: url("./assets/fonts/NotoSans-Regular.ttf") format("truetype");
+}

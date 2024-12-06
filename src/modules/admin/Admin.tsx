@@ -4,6 +4,7 @@ import PriceToTick from "./components/PriceToTick";
 import MergeCoins from "./components/MergeCoins";
 import Rebalance from "./components/Rebalance";
 import { getAllDoubleAssetVaults } from "@alphafi/alphafi-sdk";
+import SetWeight from "./components/SetWeight";
 
 function Admin() {
   // const currentAccount = useCurrentAccount();
@@ -25,13 +26,18 @@ function Admin() {
 
   return (
     <>
-      <div className="flex justify-between bg-[#F4F6FA] h-screen px-[14.58vw] py-4 mx-auto">
-        <div>
-          <Rebalance />
+      <div className="bg-[#F4F6FA] px-[14.58vw] pb-20">
+        <div className="flex justify-between  py-4 mx-auto">
+          <div>
+            <Rebalance />
+          </div>
+          <div className="">
+            <PriceToTick />
+            <MergeCoins />
+          </div>
         </div>
-        <div className="">
-          <PriceToTick />
-          <MergeCoins />
+        <div>
+          <SetWeight />
         </div>
       </div>
     </>
