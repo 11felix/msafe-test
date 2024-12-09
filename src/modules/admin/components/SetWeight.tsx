@@ -68,7 +68,7 @@ function SetWeight() {
       ...updatedData[index],
       newWeight: isNaN(newValue) ? 0 : newValue,
     };
-    console.log("updatedData", updatedData);
+    console.log(`Updated index: ${index}`, updatedData[index]);
     setData(updatedData);
   };
 
