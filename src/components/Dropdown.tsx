@@ -10,7 +10,11 @@ interface Vault {
   name2: string;
 }
 
-const Dropdown: React.FC = () => {
+interface DropdownProps {
+  onSelect: (selectedVault: Vault) => void;
+}
+
+const Dropdown: React.FC<DropdownProps> = ({ onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Vault | null>(null);
   const [vaults, setVaults] = useState<Vault[]>([]);
@@ -20,7 +24,6 @@ const Dropdown: React.FC = () => {
     const fetchVaults = async () => {
       try {
         const data: string[] = await getAllDoubleAssetVaults();
-        // console.log("DATA-->>", data);
         const formattedVaults = data.map((item) => {
           const parts = item.split("-");
           if (parts.length === 3) {
@@ -49,12 +52,11 @@ const Dropdown: React.FC = () => {
     fetchVaults();
   }, []);
 
-  // console.log("VAULTS--->>>>", vaults);
-
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
+      event.target instanceof Element &&
+      !dropdownRef.current.contains(event.target)
     ) {
       setIsOpen(false);
     }
@@ -70,6 +72,7 @@ const Dropdown: React.FC = () => {
   const handleSelect = (item: Vault) => {
     setSelectedItem(item);
     setIsOpen(false);
+    onSelect(item);
   };
 
   return (
@@ -109,7 +112,7 @@ const Dropdown: React.FC = () => {
               <button
                 key={index}
                 onClick={() => handleSelect(vault)}
-                className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                className="flex items-center px-4 py-2 text-[0.88vw] text-[#222F3B] hover:bg-gray-100 w-full text-left"
               >
                 <span className="mr-[0.83vw]">
                   <div className="flex items-center">

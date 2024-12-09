@@ -1,10 +1,147 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Dropdown from "../../../components/Dropdown";
-// import { getCurrentCetusPoolPrice } from "sui-alpha-sdk";
+import { getCurrentCetusPoolPrice, getPositionRange } from "sui-alpha-sdk";
+import {
+  getPositionTicks,
+  getPriceToTick,
+  getTickToPrice,
+} from "@alphafi/alphafi-sdk";
+
+interface Vault {
+  name: string;
+  name1: string;
+  name2: string;
+}
 
 const Rebalance = () => {
-  // const cetusPoolPriceArray = await getCurrentCetusPoolPrice(false);
-  // let currPrice = cetusPoolPriceArray.get("ALPHA-SUI");
+  const [selectedVault, setSelectedVault] = useState<any>(null);
+  const [currentPrice, setCurrentPrice] = useState("");
+  const [priceLower, setPriceLower] = useState("");
+  const [priceUpper, setPriceUpper] = useState("");
+  const [coinName1, setCoinName1] = useState("");
+  const [coinName2, setCoinName2] = useState("");
+  const handleVaultSelect = (vault: Vault) => {
+    setSelectedVault(vault);
+    console.log("Selected from parent Vault:", vault);
+  };
+
+  console.log(
+    "SELECTED VAULT PARENT--->>>",
+    selectedVault,
+    typeof selectedVault
+  );
+
+  useEffect(() => {
+    const fetchCetusPoolPrice = async () => {
+      if (selectedVault !== null) {
+        try {
+          const cetusPoolPriceArray = await getCurrentCetusPoolPrice(false);
+          const cetusPoolPrice = cetusPoolPriceArray.get(selectedVault.name);
+
+          const positionRangeArray = await getPositionRange(false);
+          const positionRange = positionRangeArray.get(selectedVault.name);
+
+          const ticks = getPositionTicks(selectedVault.name);
+          const t2p = getTickToPrice(selectedVault.name, "10980");
+          const p2t = getPriceToTick(selectedVault.name, "3");
+          console.log("TICKS--..", ticks);
+          console.log("t2p--..", t2p);
+          console.log("p2t--..", p2t);
+          // if (cetusPoolPrice) {
+          //   const currentPrice = (1 / parseFloat(cetusPoolPrice)).toFixed(5);
+          //   setCurrentPrice(currentPrice);
+          //   console.log("AAAAAAAAA", currentPrice, typeof currentPrice);
+          // }
+
+          console.log("cetusPoolPrice", cetusPoolPrice);
+          console.log("position range", positionRange);
+
+          if (
+            positionRange !== undefined &&
+            cetusPoolPrice !== undefined &&
+            ((selectedVault.name1.toUpperCase() === "WUSDC" &&
+              selectedVault.name2.toUpperCase() === "SUI") ||
+              (selectedVault.name1.toUpperCase() === "WUSDC" &&
+                selectedVault.name2.toUpperCase() === "WBTC") ||
+              (selectedVault.name1.toUpperCase() === "USDC" &&
+                selectedVault.name2.toUpperCase() === "SUI") ||
+              (selectedVault.name1.toUpperCase() === "USDC" &&
+                selectedVault.name2.toUpperCase() === "USDT") ||
+              (selectedVault.name1.toUpperCase() === "USDC" &&
+                selectedVault.name2.toUpperCase() === "WUSDC") ||
+              (selectedVault.name1.toUpperCase() === "BUCK" &&
+                selectedVault.name2.toUpperCase() === "SUI") ||
+              (selectedVault.name1.toUpperCase() === "USDC" &&
+                selectedVault.name2.toUpperCase() === "ETH") ||
+              (selectedVault.name1.toUpperCase() === "FUD" &&
+                selectedVault.name2.toUpperCase() === "SUI"))
+          ) {
+            const minPrice = (1 / parseFloat(positionRange.upperPrice)).toFixed(
+              5
+            );
+            setPriceLower(minPrice);
+            const maxPrice = (1 / parseFloat(positionRange.lowerPrice)).toFixed(
+              5
+            );
+            setPriceUpper(maxPrice);
+            const currentPrice = (1 / parseFloat(cetusPoolPrice)).toFixed(5);
+            setCurrentPrice(currentPrice);
+          } else if (
+            positionRange !== undefined &&
+            cetusPoolPrice !== undefined
+          ) {
+            const minPrice = parseFloat(positionRange.lowerPrice).toFixed(5);
+            setPriceLower(minPrice);
+            const maxPrice = parseFloat(positionRange.upperPrice).toFixed(5);
+            setPriceUpper(maxPrice);
+            const currentPrice = parseFloat(cetusPoolPrice).toFixed(5);
+            setCurrentPrice(currentPrice);
+          }
+        } catch (error) {
+          console.error("Error fetching Cetus pool price:", error);
+        }
+        const coinName1 =
+          (selectedVault.name1.toUpperCase() === "WUSDC" &&
+            selectedVault.name2.toUpperCase() === "SUI") ||
+          (selectedVault.name1.toUpperCase() === "WUSDC" &&
+            selectedVault.name2.toUpperCase() === "WBTC") ||
+          (selectedVault.name1.toUpperCase() === "USDC" &&
+            selectedVault.name2.toUpperCase() === "SUI") ||
+          (selectedVault.name1.toUpperCase() === "USDC" &&
+            selectedVault.name2.toUpperCase() === "USDT") ||
+          (selectedVault.name1.toUpperCase() === "USDC" &&
+            selectedVault.name2.toUpperCase() === "WUSDC") ||
+          (selectedVault.name1.toUpperCase() === "BUCK" &&
+            selectedVault.name2.toUpperCase() === "SUI") ||
+          (selectedVault.name1.toUpperCase() === "USDC" &&
+            selectedVault.name2.toUpperCase() === "ETH")
+            ? selectedVault.name2
+            : selectedVault.name1;
+        setCoinName1(coinName1);
+        const coinName2 =
+          (selectedVault.name1.toUpperCase() === "WUSDC" &&
+            selectedVault.name2.toUpperCase() === "SUI") ||
+          (selectedVault.name1.toUpperCase() === "WUSDC" &&
+            selectedVault.name2.toUpperCase() === "WBTC") ||
+          (selectedVault.name1.toUpperCase() === "USDC" &&
+            selectedVault.name2.toUpperCase() === "SUI") ||
+          (selectedVault.name1.toUpperCase() === "USDC" &&
+            selectedVault.name2.toUpperCase() === "USDT") ||
+          (selectedVault.name1.toUpperCase() === "USDC" &&
+            selectedVault.name2.toUpperCase() === "WUSDC") ||
+          (selectedVault.name1.toUpperCase() === "BUCK" &&
+            selectedVault.name2.toUpperCase() === "SUI") ||
+          (selectedVault.name1.toUpperCase() === "USDC" &&
+            selectedVault.name2.toUpperCase() === "ETH")
+            ? selectedVault.name1
+            : selectedVault.name2;
+        setCoinName2(coinName2);
+      }
+    };
+    fetchCetusPoolPrice();
+  }, [selectedVault]);
+  console.log("CURRENT PRICE--->>", currentPrice);
+
   return (
     <>
       <div className="flex flex-col w-[33.48vw] h-[40.88vw] bg-white rounded-[2.08vw] p-[2.08vw]">
@@ -15,7 +152,7 @@ const Rebalance = () => {
           <p className="text-[0.88vw] font-noto font-bold text-[#222F3B] mb-[0.52vw]">
             Select Pool
           </p>
-          <Dropdown />
+          <Dropdown onSelect={handleVaultSelect} />
         </div>
         <div className="flex justify-between mb-[1.56vw]">
           <div className="flex flex-col">
@@ -24,7 +161,7 @@ const Rebalance = () => {
                 Current Price:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                1.374 USDC PER ALPHA
+                {currentPrice} {coinName2} PER {coinName1}
               </p>
             </div>
             <div className="flex mb-[0.36vw]">
@@ -32,7 +169,7 @@ const Rebalance = () => {
                 Price Lower:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                0.428
+                {priceLower}
               </p>
             </div>
             <div className="flex mb-[0.36vw]">
@@ -40,7 +177,7 @@ const Rebalance = () => {
                 Price Upper:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                8.367
+                {priceUpper}
               </p>
             </div>
           </div>
