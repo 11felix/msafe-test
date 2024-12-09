@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Dropdown from "../../../components/Dropdown";
 import { getCurrentCetusPoolPrice, getPositionRange } from "sui-alpha-sdk";
 import {
+  getCurrentTick,
   getPositionTicks,
   getPriceToTick,
   getTickToPrice,
@@ -20,6 +21,10 @@ const Rebalance = () => {
   const [priceUpper, setPriceUpper] = useState("");
   const [coinName1, setCoinName1] = useState("");
   const [coinName2, setCoinName2] = useState("");
+  const [currentTick, setCurrentTick] = useState<number | null>(null);
+  const [tickLower, setTickLower] = useState<number | null>(null);
+  const [tickUpper, setTickUpper] = useState<number | null>(null);
+
   const handleVaultSelect = (vault: Vault) => {
     setSelectedVault(vault);
     console.log("Selected from parent Vault:", vault);
@@ -41,18 +46,22 @@ const Rebalance = () => {
           const positionRangeArray = await getPositionRange(false);
           const positionRange = positionRangeArray.get(selectedVault.name);
 
-          const ticks = getPositionTicks(selectedVault.name);
+          const ticks: number[] = await getPositionTicks(selectedVault.name);
+          if (ticks.length >= 2) {
+            setTickLower(Math.min(...ticks));
+            setTickUpper(Math.max(...ticks));
+          }
+
+          const currentTick = await getCurrentTick(selectedVault.name);
+          setCurrentTick(currentTick);
+
           const t2p = getTickToPrice(selectedVault.name, "10980");
           const p2t = getPriceToTick(selectedVault.name, "3");
+
           console.log("TICKS--..", ticks);
           console.log("t2p--..", t2p);
           console.log("p2t--..", p2t);
-          // if (cetusPoolPrice) {
-          //   const currentPrice = (1 / parseFloat(cetusPoolPrice)).toFixed(5);
-          //   setCurrentPrice(currentPrice);
-          //   console.log("AAAAAAAAA", currentPrice, typeof currentPrice);
-          // }
-
+          console.log("currentTick--..", currentTick);
           console.log("cetusPoolPrice", cetusPoolPrice);
           console.log("position range", positionRange);
 
@@ -161,7 +170,13 @@ const Rebalance = () => {
                 Current Price:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                {currentPrice} {coinName2} PER {coinName1}
+                {currentPrice !== "" ? (
+                  <>
+                    &nbsp;{currentPrice} {coinName2} PER {coinName1}
+                  </>
+                ) : (
+                  <>&nbsp;-</>
+                )}
               </p>
             </div>
             <div className="flex mb-[0.36vw]">
@@ -169,7 +184,7 @@ const Rebalance = () => {
                 Price Lower:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                {priceLower}
+                {priceLower !== "" ? <>&nbsp;{priceLower}</> : <>&nbsp;-</>}
               </p>
             </div>
             <div className="flex mb-[0.36vw]">
@@ -177,7 +192,7 @@ const Rebalance = () => {
                 Price Upper:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                {priceUpper}
+                {priceUpper !== "" ? <>&nbsp;{priceUpper}</> : <>&nbsp;-</>}
               </p>
             </div>
           </div>
@@ -187,7 +202,7 @@ const Rebalance = () => {
                 Current Tick:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                -1
+                &nbsp;{currentTick ? currentTick : "-"}
               </p>
             </div>
             <div className="flex mb-[0.36vw]">
@@ -195,7 +210,7 @@ const Rebalance = () => {
                 Tick Lower:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                0
+                &nbsp;{tickLower ? tickLower : "-"}
               </p>
             </div>
             <div className="flex mb-[0.36vw]">
@@ -203,7 +218,7 @@ const Rebalance = () => {
                 Tick Upper:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                2
+                &nbsp;{tickUpper ? tickUpper : "-"}
               </p>
             </div>
           </div>
