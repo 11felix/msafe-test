@@ -7,6 +7,7 @@ import {
   getPriceToTick,
   getTickToPrice,
 } from "@alphafi/alphafi-sdk";
+import Spinner from "../../../components/Spinner";
 
 interface Vault {
   name: string;
@@ -24,16 +25,18 @@ const Rebalance = () => {
   const [currentTick, setCurrentTick] = useState<number | null>(null);
   const [tickLower, setTickLower] = useState<number | null>(null);
   const [tickUpper, setTickUpper] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleVaultSelect = (vault: Vault) => {
     setSelectedVault(vault);
+    setIsLoading(true);
     console.log("Selected from parent Vault:", vault);
   };
 
   console.log(
     "SELECTED VAULT PARENT--->>>",
     selectedVault,
-    typeof selectedVault
+    typeof selectedVault,
   );
 
   useEffect(() => {
@@ -86,11 +89,11 @@ const Rebalance = () => {
                 selectedVault.name2.toUpperCase() === "SUI"))
           ) {
             const minPrice = (1 / parseFloat(positionRange.upperPrice)).toFixed(
-              5
+              5,
             );
             setPriceLower(minPrice);
             const maxPrice = (1 / parseFloat(positionRange.lowerPrice)).toFixed(
-              5
+              5,
             );
             setPriceUpper(maxPrice);
             const currentPrice = (1 / parseFloat(cetusPoolPrice)).toFixed(5);
@@ -105,6 +108,7 @@ const Rebalance = () => {
             setPriceUpper(maxPrice);
             const currentPrice = parseFloat(cetusPoolPrice).toFixed(5);
             setCurrentPrice(currentPrice);
+            setIsLoading(false);
           }
         } catch (error) {
           console.error("Error fetching Cetus pool price:", error);
@@ -165,12 +169,14 @@ const Rebalance = () => {
         </div>
         <div className="flex justify-between mb-[1.56vw]">
           <div className="flex flex-col">
-            <div className="flex mb-[0.36vw]">
+            <div className="flex mb-[0.36vw] items-center">
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Current Price:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                {currentPrice !== "" ? (
+                {isLoading ? (
+                  <Spinner className="ml-2" />
+                ) : currentPrice !== "" ? (
                   <>
                     &nbsp;{currentPrice} {coinName2} PER {coinName1}
                   </>
@@ -184,7 +190,13 @@ const Rebalance = () => {
                 Price Lower:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                {priceLower !== "" ? <>&nbsp;{priceLower}</> : <>&nbsp;-</>}
+                {isLoading ? (
+                  <Spinner className="ml-2" />
+                ) : priceLower !== "" ? (
+                  <>&nbsp;{priceLower}</>
+                ) : (
+                  <>&nbsp;-</>
+                )}
               </p>
             </div>
             <div className="flex mb-[0.36vw]">
@@ -192,7 +204,13 @@ const Rebalance = () => {
                 Price Upper:{" "}
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                {priceUpper !== "" ? <>&nbsp;{priceUpper}</> : <>&nbsp;-</>}
+                {isLoading ? (
+                  <Spinner className="ml-2" />
+                ) : priceUpper !== "" ? (
+                  <>&nbsp;{priceUpper}</>
+                ) : (
+                  <>&nbsp;-</>
+                )}
               </p>
             </div>
           </div>
