@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import alphalogo from "../../../assets/icons/alpha_logo.png";
 import lock from "../../../assets/icons/lock.svg";
 import suilogo from "../../../assets/icons/sui-logo1.svg";
-
+import usdc from "../../../assets/icons/USDC.svg";
+import usdt from "../../../assets/icons/USDT.png";
+import hasui from "../../../assets/icons/hasui.svg";
+import sui from "../../../assets/icons/sui-ic.png";
+import usdy from "../../../assets/icons/usdy.svg";
 interface RowData {
   icon1?: string | null;
   icon2?: string | null;
@@ -36,6 +40,9 @@ function SetWeight() {
       newPercentage: 15,
     },
     {
+      icon1: usdt,
+      icon2: usdc,
+      lockIcon: null,
       name: "USDT–USDC",
       currentWeight: 20,
       currentPercentage: 10,
@@ -43,6 +50,9 @@ function SetWeight() {
       newPercentage: 10,
     },
     {
+      icon1: hasui,
+      icon2: sui,
+      lockIcon: null,
       name: "haSUI–SUI",
       currentWeight: 20,
       currentPercentage: 10,
@@ -50,6 +60,9 @@ function SetWeight() {
       newPercentage: 10,
     },
     {
+      icon1: usdy,
+      icon2: usdc,
+      lockIcon: null,
       name: "USDY–USDC",
       currentWeight: 20,
       currentPercentage: 10,

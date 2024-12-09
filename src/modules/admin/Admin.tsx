@@ -36,7 +36,7 @@ function Admin() {
             <MergeCoins />
           </div>
         </div>
-        <div>
+        <div className="flex justify-center">
           <SetWeight />
         </div>
       </div>
