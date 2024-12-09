@@ -80,6 +80,9 @@ function SetWeight(props: Props) {
                 <span className="opacity-70">Percentage</span>
               </th>
             </tr>
+            <tr>
+              <td colSpan={5} className="h-[1vw]"></td>
+            </tr>
           </thead>
           <tbody>
             {data.map((row, index) => (
@@ -146,7 +149,7 @@ function SetWeight(props: Props) {
                     }`}
                   />
                 </td>
-                <td className="text-center text-[1.25vw] text-[#3D5060] font-poppinsbold">
+                <td className="text-center text-[1.25vw] text-[#3D5060] font-poppinsbold rounded-r-[2.08vw]">
                   {row.newPercentage.toFixed(2)}%
                 </td>
               </tr>
@@ -154,7 +157,7 @@ function SetWeight(props: Props) {
           </tbody>
         </table>
       </div>
-      <div className="flex flex-col px-4 pb-[2.395vw] mt-[0.982vw]">
+      <div className="flex flex-col px-4 pb-[2.395vw] mt-[2vw]">
         <div className="text-[1.25vw] font-poppinsbold text-[#3D5060] mb-[0.98vw] pl-[2.76vw]">
           New Total Weight: 140
         </div>
