@@ -94,24 +94,29 @@ function SetWeight() {
         <table className="table-auto text-left w-full">
           <thead>
             <tr>
-              <th className="pl-[8.4vw] text-[#3D5060] text-[1.145vw] font-natosansregular opacity-70 w-[20vw]">
-                Name
+              <th className="pl-[8.4vw] text-[#3D5060] text-[1.145vw] font-natosansregular w-[20vw]">
+                <br />
+                <span className="opacity-70">Name</span>
               </th>
               <th className="text-[#3D5060] font-natosansbold text-[1.145vw] pl-[3vw] w-[7vw]">
                 Current <br />
-                <span className="opacity-70">Weight</span>
+                <span className="opacity-70 font-natosansregular">Weight</span>
               </th>
               <th className="text-[#3D5060] font-natosansbold text-[1.145vw] pl-[3vw] w-[10vw]">
                 Current <br />
-                <span className="opacity-70">Percentage</span>
+                <span className="opacity-70 font-natosansregular">
+                  Percentage
+                </span>
               </th>
               <th className="text-[#3D5060] font-natosansbold text-[1.145vw] pl-[4vw] w-[15vw]">
                 New <br />
-                <span className="opacity-70">Weight</span>
+                <span className="opacity-70 font-natosansregular">Weight</span>
               </th>
               <th className="text-[#3D5060] font-natosansbold text-[1.145vw]">
                 New <br />
-                <span className="opacity-70">Percentage</span>
+                <span className="opacity-70 font-natosansregular">
+                  Percentage
+                </span>
               </th>
               <th className="w-[4vw]" />
             </tr>
@@ -198,7 +203,7 @@ function SetWeight() {
         <div className="text-[1.25vw] font-poppinsbold text-[#3D5060] mb-[0.98vw] pl-[2.76vw]">
           New Total Weight: 140
         </div>
-        <button className="bg-[#3D5060] text-white rounded-[1.61vw] pt-[0.883vw] pb-[1.09vw] w-[26.458vw]">
+        <button className="bg-[#3D5060] text-white rounded-[1.61vw] pt-[0.883vw] pb-[1.09vw] w-[26.458vw] text-[1.25vw] font-poppinsbold">
           Set Weight
         </button>
       </div>
