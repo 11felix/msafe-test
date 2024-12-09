@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import alphalogo from "../../../assets/icons/alpha_logo.png";
 import lock from "../../../assets/icons/lock.svg";
 import suilogo from "../../../assets/icons/sui-logo1.svg";
 
-interface Props {}
-
-function SetWeight(props: Props) {
-  const {} = props;
-  const data = [
+interface RowData {
+  icon1?: string | null;
+  icon2?: string | null;
+  lockIcon?: string | null;
+  name: string;
+  currentWeight: number;
+  currentPercentage: number;
+  newWeight: number;
+  newPercentage: number;
+}
+function SetWeight() {
+  const [data, setData] = useState<RowData[]>([
     {
       icon1: alphalogo,
       icon2: null,
@@ -49,7 +56,21 @@ function SetWeight(props: Props) {
       newWeight: 20,
       newPercentage: 10,
     },
-  ];
+  ]);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+  ) => {
+    const newValue = Number(e.target.value);
+    const updatedData = [...data];
+    updatedData[index] = {
+      ...updatedData[index],
+      newWeight: isNaN(newValue) ? 0 : newValue,
+    };
+    console.log("updatedData", updatedData);
+    setData(updatedData);
+  };
 
   return (
     <div className="w-[69.427vw] h-auto bg-white rounded-[2.08vw] pt-[2.343vw] pl-[2.08vw] pr-[2.812vw]">
@@ -60,18 +81,18 @@ function SetWeight(props: Props) {
         <table className="table-auto text-left w-full">
           <thead>
             <tr>
-              <th className="pl-[2.76vw] text-[#3D5060] text-[1.145vw] font-natosansregular opacity-70">
+              <th className="pl-[8.4vw] text-[#3D5060] text-[1.145vw] font-natosansregular opacity-70 w-[20vw]">
                 Name
               </th>
-              <th className="text-[#3D5060] font-natosansbold text-[1.145vw]">
+              <th className="text-[#3D5060] font-natosansbold text-[1.145vw] pl-[3vw] w-[7vw]">
                 Current <br />
                 <span className="opacity-70">Weight</span>
               </th>
-              <th className="text-[#3D5060] font-natosansbold text-[1.145vw]">
+              <th className="text-[#3D5060] font-natosansbold text-[1.145vw] pl-[3vw] w-[10vw]">
                 Current <br />
                 <span className="opacity-70">Percentage</span>
               </th>
-              <th className="text-[#3D5060] font-natosansbold text-[1.145vw]">
+              <th className="text-[#3D5060] font-natosansbold text-[1.145vw] pl-[4vw] w-[15vw]">
                 New <br />
                 <span className="opacity-70">Weight</span>
               </th>
@@ -79,6 +100,7 @@ function SetWeight(props: Props) {
                 New <br />
                 <span className="opacity-70">Percentage</span>
               </th>
+              <th className="w-[4vw]" />
             </tr>
             <tr>
               <td colSpan={5} className="h-[1vw]"></td>
@@ -129,7 +151,7 @@ function SetWeight(props: Props) {
                         </>
                       )}
                     </div>
-                    <span className="ml-2 text-[#3D5060] font-poppinsbold text-[1.25vw]">
+                    <span className="ml-2 text-[#3D5060] font-poppinsbold text-[1.25vw] whitespace-nowrap">
                       {row.name}
                     </span>
                   </div>
@@ -143,15 +165,17 @@ function SetWeight(props: Props) {
                 <td className="text-center">
                   <input
                     type="number"
-                    value={row.newWeight}
-                    className={`w-20 rounded px-2 py-1 text-center text-[1.25vw] text-[#3D5060] font-poppinsbold ${
+                    value={row.newWeight || ""}
+                    className={`w-[7vw] rounded py-1 text-center text-[1.25vw] text-[#3D5060] font-poppinsbold no-spinner focus:outline-none focus:ring-0 ${
                       index % 2 === 0 ? "" : "bg-[#F4F6FA]"
                     }`}
+                    onChange={(e) => handleInputChange(e, index)}
                   />
                 </td>
-                <td className="text-center text-[1.25vw] text-[#3D5060] font-poppinsbold rounded-r-[2.08vw]">
+                <td className="text-center text-[1.25vw] text-[#3D5060] font-poppinsbold pr-[7vw]">
                   {row.newPercentage.toFixed(2)}%
                 </td>
+                <td className="rounded-r-[2.08vw] w-[4vw]" />
               </tr>
             ))}
           </tbody>
