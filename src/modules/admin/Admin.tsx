@@ -5,6 +5,7 @@ import ObjectsComponent from "./components/ObjectsComponent";
 import Rebalance from "./components/Rebalance";
 import { getAllDoubleAssetVaults } from "@alphafi/alphafi-sdk";
 import SetWeight from "./components/SetWeight";
+import AutoCompound from "./components/AutoCompound";
 
 function Admin() {
   // const currentAccount = useCurrentAccount();
@@ -53,7 +54,13 @@ function Admin() {
               buttonText="Send Object"
             />
           </div>
-          <div className="w-[33.489vw]" />
+          <div>
+            <AutoCompound
+              tittle="Auto Compound"
+              buttonText1="Compound All Pools"
+              buttonText2="Compound"
+            />
+          </div>
         </div>
       </div>
     </>
