@@ -8,7 +8,6 @@ import {
 import {
   getCurrentTick,
   getPositionTicks,
-  getPriceToTick,
   getTickToPrice,
 } from "@alphafi/alphafi-sdk";
 import Spinner from "../../../components/Spinner";
