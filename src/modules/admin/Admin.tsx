@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { getAlphaPrice } from "sui-alpha-sdk";
 import PriceToTick from "./components/PriceToTick";
-import MergeCoins from "./components/MergeCoins";
+import ObjectsComponent from "./components/ObjectsComponent";
 import Rebalance from "./components/Rebalance";
 import { getAllDoubleAssetVaults } from "@alphafi/alphafi-sdk";
 import SetWeight from "./components/SetWeight";
+import AutoCompound from "./components/AutoCompound";
 
 function Admin() {
   // const currentAccount = useCurrentAccount();
@@ -33,11 +34,33 @@ function Admin() {
           </div>
           <div className="">
             <PriceToTick />
-            <MergeCoins />
+            <ObjectsComponent
+              tittle="Merge Coins"
+              input1="Object ID"
+              input2="Object ID"
+              buttonText="Merge Coins"
+            />
           </div>
         </div>
-        <div>
+        <div className="flex justify-center">
           <SetWeight />
+        </div>
+        <div className="flex justify-center gap-[2.44vw] py-4">
+          <div className="">
+            <ObjectsComponent
+              tittle="Send Objects"
+              input1="Object ID"
+              input2="To Address"
+              buttonText="Send Object"
+            />
+          </div>
+          <div>
+            <AutoCompound
+              tittle="Auto Compound"
+              buttonText1="Compound All Pools"
+              buttonText2="Compound"
+            />
+          </div>
         </div>
       </div>
     </>
