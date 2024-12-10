@@ -333,7 +333,7 @@ const Rebalance = (props: RebalanceProps) => {
                 Current Ratio: &nbsp;
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                100% USDC
+                -
               </p>
             </div>
             <div className="flex justify-between mb-[0.36vw]">
@@ -341,7 +341,7 @@ const Rebalance = (props: RebalanceProps) => {
                 New Ratio: &nbsp;
               </p>
               <p className="text-[0.98vw] text-[#2D9EFF] font-noto font-medium">
-                35% USDC and 65% ALPHA
+                -
               </p>
             </div>
             <div className="flex justify-between mb-[0.36vw]">
