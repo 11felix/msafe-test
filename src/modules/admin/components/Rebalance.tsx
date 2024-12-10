@@ -36,7 +36,7 @@ const Rebalance = () => {
   console.log(
     "SELECTED VAULT PARENT--->>>",
     selectedVault,
-    typeof selectedVault,
+    typeof selectedVault
   );
 
   useEffect(() => {
@@ -90,11 +90,11 @@ const Rebalance = () => {
                 selectedVault.name2.toUpperCase() === "SUI"))
           ) {
             const minPrice = (1 / parseFloat(positionRange.upperPrice)).toFixed(
-              5,
+              5
             );
             setPriceLower(minPrice);
             const maxPrice = (1 / parseFloat(positionRange.lowerPrice)).toFixed(
-              5,
+              5
             );
             setPriceUpper(maxPrice);
             const currentPrice = (1 / parseFloat(cetusPoolPrice)).toFixed(5);
@@ -109,8 +109,8 @@ const Rebalance = () => {
             setPriceUpper(maxPrice);
             const currentPrice = parseFloat(cetusPoolPrice).toFixed(5);
             setCurrentPrice(currentPrice);
-            setIsLoading(false);
           }
+          setIsLoading(false);
         } catch (error) {
           console.error("Error fetching Cetus pool price:", error);
         }
