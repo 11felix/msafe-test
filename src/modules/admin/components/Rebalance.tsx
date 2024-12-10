@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Dropdown from "../../../components/Dropdown";
 import {
+  alphaLpBreakdown,
+  bluefinLpBreakdown,
+  cetusLpBreakdown,
   getCurrentCetusPoolPrice,
   getPositionRange,
   PoolName,
 } from "sui-alpha-sdk";
-import {
-  getCurrentTick,
-  getPositionTicks,
-  getPriceToTick,
-  getTickToPrice,
-} from "@alphafi/alphafi-sdk";
+import { getCurrentTick, getPositionTicks } from "@alphafi/alphafi-sdk";
 import Spinner from "../../../components/Spinner";
 import { Vault } from "../Admin";
+import { SuiTokensList } from "../../../service/suiTokensList";
 
 interface RebalanceProps {
   selectedVault: Vault | null;
@@ -31,6 +30,20 @@ const Rebalance = (props: RebalanceProps) => {
   const [tickLower, setTickLower] = useState<number | null>(null);
   const [tickUpper, setTickUpper] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [alphaLpBreakdownDetails, setAlphaLpBreakdownDetails] = useState<any>(
+    {}
+  );
+  const [cetusLpBreakdownDetails, setCetusLpBreakdownDetails] = useState<any>(
+    {}
+  );
+  const [tokenShareInPool, setTokenShareInPool] = useState<string[]>([
+    "0",
+    "0",
+  ]);
+  // const [tokenShare2InPool, setTokenShare2InPool] = useState<string[]>([
+  //   "0",
+  //   "0",
+  // ]);
 
   const handleVaultSelect = (vault: Vault) => {
     setSelectedVault(vault);
@@ -70,15 +83,80 @@ const Rebalance = (props: RebalanceProps) => {
           );
           setCurrentTick(Number(currentTick));
 
-          const t2p = getTickToPrice(selectedVault.name as PoolName, "10980");
-          const p2t = getPriceToTick(selectedVault.name as PoolName, "3");
+          // console.log("TICKS--..", ticks);
+          // console.log("currentTick--..", currentTick);
+          // console.log("cetusPoolPrice", cetusPoolPrice);
+          // console.log("position range", positionRange);
 
-          console.log("TICKS--..", ticks);
-          console.log("t2p--..", t2p);
-          console.log("p2t--..", p2t);
-          console.log("currentTick--..", currentTick);
-          console.log("cetusPoolPrice", cetusPoolPrice);
-          console.log("position range", positionRange);
+          const parts = selectedVault.name.split("-");
+          if (parts.length === 3) {
+            const lpDetailsInAlphaProtocol = await alphaLpBreakdown(
+              selectedVault.name as PoolName,
+              false
+            );
+            setAlphaLpBreakdownDetails(lpDetailsInAlphaProtocol);
+            const lpDetailsInCetusProtocol = await bluefinLpBreakdown(
+              selectedVault.name as PoolName,
+              false
+            );
+            setCetusLpBreakdownDetails(lpDetailsInCetusProtocol);
+          } else if (parts.length === 2) {
+            const lpDetailsInAlphaProtocol = await alphaLpBreakdown(
+              selectedVault.name as PoolName,
+              false
+            );
+            setAlphaLpBreakdownDetails(lpDetailsInAlphaProtocol);
+            const lpDetailsInCetusProtocol = await cetusLpBreakdown(
+              selectedVault.name as PoolName,
+              false
+            );
+            setCetusLpBreakdownDetails(lpDetailsInCetusProtocol);
+          }
+          console.log("alphaLpBreakdownDetails", alphaLpBreakdownDetails);
+          let token1Share: string = "0";
+          let token2Share: string = "0";
+          // let token11Share: string = "0";
+          // let token22Share: string = "0";
+          // if () {
+          const token1Count =
+            alphaLpBreakdownDetails?.coinAInUsd /
+            10 ** SuiTokensList[selectedVault.name1.toLowerCase()].decimals;
+          const token2Count =
+            alphaLpBreakdownDetails?.coinBInUsd /
+            10 ** SuiTokensList[selectedVault.name2.toLowerCase()].decimals;
+          token1Share = (token1Count / (token1Count + token2Count)).toFixed(2);
+          token2Share = (token2Count / (token1Count + token2Count)).toFixed(2);
+          console.log("token1Count", token1Count);
+          console.log("token2Count", token2Count);
+          console.log("token1Share", token1Share);
+          console.log("token2Share", token2Share);
+          console.log(
+            "SuiTokensList[selectedVault.name1.toLowerCase()].decimals",
+            SuiTokensList[selectedVault.name1.toLowerCase()].decimals
+          );
+          console.log(
+            "SuiTokensList[selectedVault.name2.toLowerCase()].decimals",
+            SuiTokensList[selectedVault.name2.toLowerCase()].decimals
+          );
+          console.log("selectedVault.name1", selectedVault.name1);
+          console.log("selectedVault.name2", selectedVault.name2);
+          // }
+
+          // const token11Count =
+          //   cetusLpBreakdownDetails?.coinAInUsd /
+          //   10 ** SuiTokensList[selectedVault.name1.toLowerCase()].decimals;
+          // const token22Count =
+          //   cetusLpBreakdownDetails?.coinBInUsd /
+          //   10 ** SuiTokensList[selectedVault.name2.toLowerCase()].decimals;
+          // token11Share = (token11Count / (token11Count + token22Count)).toFixed(
+          //   2
+          // );
+          // token22Share = (token22Count / (token1Count + token22Count)).toFixed(
+          //   2
+          // );
+
+          setTokenShareInPool([token1Share, token2Share]);
+          // setTokenShare2InPool([token11Share, token22Share]);
 
           if (
             positionRange !== undefined &&
@@ -165,7 +243,10 @@ const Rebalance = (props: RebalanceProps) => {
     };
     fetchCetusPoolPrice();
   }, [selectedVault]);
-  console.log("CURRENT PRICE--->>", currentPrice);
+  // console.log("CURRENT PRICE--->>", currentPrice);
+  console.log("TOKEN SHARE IN POOL--->>>", tokenShareInPool);
+  // console.log("TOKEN SHARE 222222 IN POOL--->>>", tokenShare2InPool);
+  console.log("cetusLpBreakdownDetails", cetusLpBreakdownDetails);
 
   return (
     <>
@@ -181,90 +262,80 @@ const Rebalance = (props: RebalanceProps) => {
         </div>
         <div className="flex justify-between mb-[1.56vw]">
           <div className="flex flex-col">
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center mb-[0.36vw]">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Current Price:&nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : currentPrice !== "" ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                  {currentPrice} {coinName2} PER {coinName1}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+                  {currentPrice
+                    ? `${currentPrice} ${coinName2}/${coinName1}`
+                    : "-"}
+                </div>
               )}
             </div>
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center mb-[0.36vw]">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Price Lower:&nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : priceLower !== "" ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                  {priceLower}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+                  {priceLower ? priceLower : "-"}
+                </div>
               )}
             </div>
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Price Upper:&nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : priceUpper !== "" ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                  {priceUpper}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+                  {priceUpper ? priceUpper : "-"}
+                </div>
               )}
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center mb-[0.36vw]">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Current Tick:&nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : currentTick ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium ">
-                  {currentTick}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium ">
+                  {currentTick ? currentTick : "-"}
+                </div>
               )}
             </div>
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center mb-[0.36vw]">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Tick Lower: &nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : tickLower ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                  {tickLower}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+                  {tickLower ? tickLower : "-"}
+                </div>
               )}
             </div>
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Tick Upper: &nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : tickUpper ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                  {tickUpper}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+                  {tickUpper ? tickUpper : "-"}
+                </div>
               )}
             </div>
           </div>
