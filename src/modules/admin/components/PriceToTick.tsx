@@ -28,7 +28,7 @@ function PriceToTick(props: Props) {
           selectedVault.name as PoolName,
           price,
         );
-        setTick(calculatedTick);
+        setTick(Number(calculatedTick).toFixed(3));
       } catch (error) {
         console.error("Error calculating tick:", error);
       }
@@ -44,7 +44,7 @@ function PriceToTick(props: Props) {
           selectedVault.name as PoolName,
           tick,
         );
-        setPrice(calculatedPrice);
+        setPrice(Number(calculatedPrice).toFixed(3));
       } catch (error) {
         console.error("Error calculating price:", error);
       }

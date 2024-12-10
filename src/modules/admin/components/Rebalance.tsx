@@ -30,7 +30,51 @@ const Rebalance = (props: RebalanceProps) => {
   const [tickLower, setTickLower] = useState<number | null>(null);
   const [tickUpper, setTickUpper] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [lowerTick, setLowerTick] = useState<string>("");
+  const [upperTick, setUpperTick] = useState<string>("");
+  const [lowerTickToPrice, setLowerTickToPrice] = useState<string>("");
+  const [upperTickToPrice, setUpperTickToPrice] = useState<string>("");
 
+  const handleLowerTickChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = e.target.value;
+    setLowerTick(value);
+    if (value && selectedVault?.name) {
+      try {
+        const calculatedPrice = await getTickToPrice(
+          selectedVault.name as PoolName,
+          value,
+        );
+        setLowerTickToPrice(calculatedPrice);
+      } catch (error) {
+        console.error("Error calculating lower price:", error);
+      }
+    } else {
+      setLowerTickToPrice("");
+    }
+  };
+
+  const handleUpperTickChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = e.target.value;
+    setUpperTick(value);
+    if (value && selectedVault?.name) {
+      try {
+        const calculatedPrice = await getTickToPrice(
+          selectedVault.name as PoolName,
+          value,
+        );
+        setUpperTickToPrice(calculatedPrice);
+      } catch (error) {
+        console.error("Error calculating upper price:", error);
+      }
+    } else {
+      setUpperTickToPrice("");
+    }
+  };
+  console.log("lowerPrice", lowerTickToPrice, "upperPrice", upperTickToPrice);
   const handleVaultSelect = (vault: Vault) => {
     setSelectedVault(vault);
     setIsLoading(true);
@@ -276,6 +320,8 @@ const Rebalance = (props: RebalanceProps) => {
               </label>
               <input
                 type="number"
+                value={lowerTick}
+                onChange={handleLowerTickChange}
                 className="w-[10.05vw] rounded-[0.364vw] no-spinner px-[1.04vw] pt-[0.20vw] pb-[0.26vw] font-poppinsbold text-[1.145vw] focus:outline-none focus:ring-0 leading-[1.145vw] text-[#222F3B]"
               />
             </div>
@@ -286,6 +332,8 @@ const Rebalance = (props: RebalanceProps) => {
               </label>
               <input
                 type="number"
+                value={upperTick}
+                onChange={handleUpperTickChange}
                 className="w-[10.05vw] rounded-[0.364vw] no-spinner px-[1.04vw] pt-[0.20vw] pb-[0.26vw] font-poppinsbold text-[1.145vw] focus:outline-none focus:ring-0 text-[#222F3B]"
               />
             </div>
@@ -315,7 +363,9 @@ const Rebalance = (props: RebalanceProps) => {
                 New Price Lower: &nbsp;
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                0.9998 USDC per ALPHA
+                {lowerTickToPrice
+                  ? `${Number(lowerTickToPrice).toFixed(3)} ${coinName1} per ${coinName2}`
+                  : "-"}
               </p>
             </div>
             <div className="flex justify-between mb-[0.36vw]">
@@ -323,7 +373,9 @@ const Rebalance = (props: RebalanceProps) => {
                 New Price Upper: &nbsp;
               </p>
               <p className="text-[0.98vw] text-[#2D9EFF] font-noto font-medium">
-                1.0000 USDC per Alpha
+                {upperTickToPrice
+                  ? `${Number(upperTickToPrice).toFixed(3)} ${coinName1} per ${coinName2}`
+                  : "-"}
               </p>
             </div>
           </div>
