@@ -46,14 +46,15 @@ const Rebalance = () => {
           const positionRangeArray = await getPositionRange(false);
           const positionRange = positionRangeArray.get(selectedVault.name);
 
-          const ticks: number[] = await getPositionTicks(selectedVault.name);
+          const ticks = await getPositionTicks(selectedVault.name);
           if (ticks.length >= 2) {
-            setTickLower(Math.min(...ticks));
-            setTickUpper(Math.max(...ticks));
+            const numericTicks = ticks.map(Number);
+            setTickLower(Math.min(...numericTicks));
+            setTickUpper(Math.max(...numericTicks));
           }
 
           const currentTick = await getCurrentTick(selectedVault.name);
-          setCurrentTick(currentTick);
+          setCurrentTick(Number(currentTick));
 
           const t2p = getTickToPrice(selectedVault.name, "10980");
           const p2t = getPriceToTick(selectedVault.name, "3");
