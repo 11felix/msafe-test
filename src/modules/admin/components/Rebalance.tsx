@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Dropdown from "../../../components/Dropdown";
-import { getCurrentCetusPoolPrice, getPositionRange } from "sui-alpha-sdk";
+import {
+  getCurrentCetusPoolPrice,
+  getPositionRange,
+  PoolName,
+} from "sui-alpha-sdk";
 import {
   getCurrentTick,
   getPositionTicks,
@@ -8,15 +12,16 @@ import {
   getTickToPrice,
 } from "@alphafi/alphafi-sdk";
 import Spinner from "../../../components/Spinner";
+import { Vault } from "../Admin";
 
-interface Vault {
-  name: string;
-  name1: string;
-  name2: string;
+interface RebalanceProps {
+  selectedVault: Vault | null;
+  setSelectedVault: React.Dispatch<React.SetStateAction<Vault | null>>;
 }
 
-const Rebalance = () => {
-  const [selectedVault, setSelectedVault] = useState<any>(null);
+const Rebalance = (props: RebalanceProps) => {
+  const { selectedVault, setSelectedVault } = props;
+  // const [selectedVault, setSelectedVault] = useState<any>(null);
   const [currentPrice, setCurrentPrice] = useState("");
   const [priceLower, setPriceLower] = useState("");
   const [priceUpper, setPriceUpper] = useState("");
@@ -30,7 +35,7 @@ const Rebalance = () => {
   const handleVaultSelect = (vault: Vault) => {
     setSelectedVault(vault);
     setIsLoading(true);
-    console.log("Selected from parent Vault:", vault);
+    console.log("Selected Vault:", vault);
   };
 
   console.log(
@@ -44,23 +49,29 @@ const Rebalance = () => {
       if (selectedVault !== null) {
         try {
           const cetusPoolPriceArray = await getCurrentCetusPoolPrice(false);
-          const cetusPoolPrice = cetusPoolPriceArray.get(selectedVault.name);
+          const cetusPoolPrice = cetusPoolPriceArray.get(
+            selectedVault.name as PoolName
+          );
 
           const positionRangeArray = await getPositionRange(false);
-          const positionRange = positionRangeArray.get(selectedVault.name);
+          const positionRange = positionRangeArray.get(
+            selectedVault.name as PoolName
+          );
 
-          const ticks = await getPositionTicks(selectedVault.name);
+          const ticks = await getPositionTicks(selectedVault.name as PoolName);
           if (ticks.length >= 2) {
             const numericTicks = ticks.map(Number);
             setTickLower(Math.min(...numericTicks));
             setTickUpper(Math.max(...numericTicks));
           }
 
-          const currentTick = await getCurrentTick(selectedVault.name);
+          const currentTick = await getCurrentTick(
+            selectedVault.name as PoolName
+          );
           setCurrentTick(Number(currentTick));
 
-          const t2p = getTickToPrice(selectedVault.name, "10980");
-          const p2t = getPriceToTick(selectedVault.name, "3");
+          const t2p = getTickToPrice(selectedVault.name as PoolName, "10980");
+          const p2t = getPriceToTick(selectedVault.name as PoolName, "3");
 
           console.log("TICKS--..", ticks);
           console.log("t2p--..", t2p);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getAlphaPrice } from "sui-alpha-sdk";
 import PriceToTick from "./components/PriceToTick";
 import ObjectsComponent from "./components/ObjectsComponent";
@@ -7,17 +7,19 @@ import { getAllDoubleAssetVaults } from "@alphafi/alphafi-sdk";
 import SetWeight from "./components/SetWeight";
 import AutoCompound from "./components/AutoCompound";
 
+export type Vault = {
+  name: string;
+  name1: string;
+  name2: string;
+};
+
 function Admin() {
-  // const currentAccount = useCurrentAccount();
+  const [selectedVault, setSelectedVault] = useState<Vault | null>(null);
   const a = getAllDoubleAssetVaults();
   console.log("a", a);
+  console.log("SELECTED VAULT==", selectedVault);
+
   useEffect(() => {
-    // getAlphaPrice(true).then((data) => {
-    //   console.log("data1", data);
-    // });
-    // getLatestPrices(["SUI/USD"],true).then((data) => {
-    //   console.log(data);
-    // });
     const test = async () => {
       const data = await getAlphaPrice(true);
       console.log("data2", data);
@@ -30,7 +32,10 @@ function Admin() {
       <div className="bg-[#F4F6FA] px-[14.58vw] pb-20">
         <div className="flex justify-center gap-[2.44vw] py-4">
           <div>
-            <Rebalance />
+            <Rebalance
+              selectedVault={selectedVault}
+              setSelectedVault={setSelectedVault}
+            />
           </div>
           <div className="">
             <PriceToTick />
