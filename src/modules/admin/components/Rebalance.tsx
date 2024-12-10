@@ -74,18 +74,10 @@ const Rebalance = (props: RebalanceProps) => {
       setUpperTickToPrice("");
     }
   };
-  console.log("lowerPrice", lowerTickToPrice, "upperPrice", upperTickToPrice);
   const handleVaultSelect = (vault: Vault) => {
     setSelectedVault(vault);
     setIsLoading(true);
-    console.log("Selected Vault:", vault);
   };
-
-  console.log(
-    "SELECTED VAULT PARENT--->>>",
-    selectedVault,
-    typeof selectedVault,
-  );
 
   useEffect(() => {
     const fetchCetusPoolPrice = async () => {
@@ -113,15 +105,10 @@ const Rebalance = (props: RebalanceProps) => {
           );
           setCurrentTick(Number(currentTick));
 
-          const t2p = getTickToPrice(selectedVault.name as PoolName, "10980");
-          const p2t = getPriceToTick(selectedVault.name as PoolName, "3");
-
-          console.log("TICKS--..", ticks);
-          console.log("t2p--..", t2p);
-          console.log("p2t--..", p2t);
-          console.log("currentTick--..", currentTick);
-          console.log("cetusPoolPrice", cetusPoolPrice);
-          console.log("position range", positionRange);
+          // console.log("TICKS--..", ticks);
+          // console.log("currentTick--..", currentTick);
+          // console.log("cetusPoolPrice", cetusPoolPrice);
+          // console.log("position range", positionRange);
 
           if (
             positionRange !== undefined &&
@@ -208,7 +195,7 @@ const Rebalance = (props: RebalanceProps) => {
     };
     fetchCetusPoolPrice();
   }, [selectedVault]);
-  console.log("CURRENT PRICE--->>", currentPrice);
+  // console.log("CURRENT PRICE--->>", currentPrice);
 
   return (
     <>
