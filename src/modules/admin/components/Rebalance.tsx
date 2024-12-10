@@ -21,7 +21,6 @@ interface RebalanceProps {
 
 const Rebalance = (props: RebalanceProps) => {
   const { selectedVault, setSelectedVault } = props;
-  // const [selectedVault, setSelectedVault] = useState<any>(null);
   const [currentPrice, setCurrentPrice] = useState("");
   const [priceLower, setPriceLower] = useState("");
   const [priceUpper, setPriceUpper] = useState("");
@@ -41,7 +40,7 @@ const Rebalance = (props: RebalanceProps) => {
   console.log(
     "SELECTED VAULT PARENT--->>>",
     selectedVault,
-    typeof selectedVault
+    typeof selectedVault,
   );
 
   useEffect(() => {
@@ -50,12 +49,12 @@ const Rebalance = (props: RebalanceProps) => {
         try {
           const cetusPoolPriceArray = await getCurrentCetusPoolPrice(false);
           const cetusPoolPrice = cetusPoolPriceArray.get(
-            selectedVault.name as PoolName
+            selectedVault.name as PoolName,
           );
 
           const positionRangeArray = await getPositionRange(false);
           const positionRange = positionRangeArray.get(
-            selectedVault.name as PoolName
+            selectedVault.name as PoolName,
           );
 
           const ticks = await getPositionTicks(selectedVault.name as PoolName);
@@ -66,7 +65,7 @@ const Rebalance = (props: RebalanceProps) => {
           }
 
           const currentTick = await getCurrentTick(
-            selectedVault.name as PoolName
+            selectedVault.name as PoolName,
           );
           setCurrentTick(Number(currentTick));
 
@@ -101,11 +100,11 @@ const Rebalance = (props: RebalanceProps) => {
                 selectedVault.name2.toUpperCase() === "SUI"))
           ) {
             const minPrice = (1 / parseFloat(positionRange.upperPrice)).toFixed(
-              5
+              5,
             );
             setPriceLower(minPrice);
             const maxPrice = (1 / parseFloat(positionRange.lowerPrice)).toFixed(
-              5
+              5,
             );
             setPriceUpper(maxPrice);
             const currentPrice = (1 / parseFloat(cetusPoolPrice)).toFixed(5);

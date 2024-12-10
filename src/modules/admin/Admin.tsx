@@ -38,7 +38,7 @@ function Admin() {
             />
           </div>
           <div className="">
-            <PriceToTick />
+            <PriceToTick selectedVault={selectedVault} />
             <ObjectsComponent
               tittle="Merge Coins"
               input1="Object ID"
