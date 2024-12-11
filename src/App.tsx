@@ -1,16 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Header from "./header/Header";
+import FirstExpandedAlphaSuiVault from "./modules/firstExpandedAlphaSuiVault";
+// import Header from "./header/Header";
 // import Footer from "./footer/Footer";
-import Admin from "./modules/admin";
+// import Admin from "./modules/admin";
 
 const App = () => {
   return (
     <>
       <Router>
-        <Header />
+        {/* <Header /> */}
         <Routes>
-          <Route index element={<Admin />} />
+          <Route index element={<FirstExpandedAlphaSuiVault />} />
         </Routes>
         {/*<Footer />*/}
       </Router>

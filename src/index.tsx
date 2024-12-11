@@ -10,12 +10,15 @@ import {
 } from "@mysten/dapp-kit";
 import "@mysten/dapp-kit/dist/index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { registerWallet } from "@mysten/wallet-standard";
+import { MSafeWallet } from "@msafe/sui-wallet";
 
 const queryClient = new QueryClient();
-// const url = "https://fullnode.mainnet.sui.io:443";
+const url = "https://fullnode.mainnet.sui.io:443";
 const { networkConfig } = createNetworkConfig({
   mainnet: { url: "https://fullnode.mainnet.sui.io:443" },
-}); //"https://fullnode.mainnet.sui.io:443"
+});
+registerWallet(new MSafeWallet("alphafi", "localhost:5173", url));
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
@@ -31,7 +34,7 @@ root.render(
         </WalletProvider>
       </SuiClientProvider>
     </QueryClientProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

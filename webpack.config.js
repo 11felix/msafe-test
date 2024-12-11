@@ -118,7 +118,7 @@ module.exports = (_env, _argv) => {
       new CopyWebpackPlugin({
         patterns: [
           { from: "src/favicon.ico", to: "favicon.ico" },
-          { from: "src/assets", to: "assets" },
+          // { from: "src/assets", to: "assets" },
         ],
       }),
       new Dotenv({

@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "npm run link",
     "build": "webpack",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
-    "link": "npm link @alphafi/alphafi-sdk sui-alpha-sdk",
     "start": "webpack serve --open"
   },
   "keywords": [],
@@ -74,6 +72,7 @@
     "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
+    "@alphafi/alphafi-sdk": "^0.0.39",
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
     "@msafe/sui-wallet": "^0.0.77",
