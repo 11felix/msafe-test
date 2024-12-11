@@ -12,6 +12,8 @@ import {
 } from "@alphafi/alphafi-sdk";
 import Spinner from "../../../components/Spinner";
 import { Vault } from "../Admin";
+import { SuiTokensList } from "../../../service/suiTokensList";
+import { alphaLpBreakdown } from "sui-alpha-sdk";
 
 interface RebalanceProps {
   selectedVault: Vault | null;
@@ -33,6 +35,13 @@ const Rebalance = (props: RebalanceProps) => {
   const [upperTick, setUpperTick] = useState<string>("");
   const [lowerTickToPrice, setLowerTickToPrice] = useState<string>("");
   const [upperTickToPrice, setUpperTickToPrice] = useState<string>("");
+  const [alphaLpBreakdownDetails, setAlphaLpBreakdownDetails] = useState<any>(
+    {},
+  );
+  const [tokenShareInPool, setTokenShareInPool] = useState<string[]>([
+    "0",
+    "0",
+  ]);
 
   const handleLowerTickChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -77,125 +86,169 @@ const Rebalance = (props: RebalanceProps) => {
     setSelectedVault(vault);
     setIsLoading(true);
   };
+  console.log("selectedVault?.name", selectedVault?.name);
 
   useEffect(() => {
     const fetchCetusPoolPrice = async () => {
-      if (selectedVault !== null) {
-        try {
-          const cetusPoolPriceArray = await getCurrentCetusPoolPrice(false);
-          const cetusPoolPrice = cetusPoolPriceArray.get(
-            selectedVault.name as PoolName,
-          );
+      if (!selectedVault) return;
 
-          const positionRangeArray = await getPositionRange(false);
-          const positionRange = positionRangeArray.get(
-            selectedVault.name as PoolName,
-          );
+      try {
+        const [cetusPoolPriceArray, positionRangeArray, ticks, currentTick] =
+          await Promise.all([
+            getCurrentCetusPoolPrice(false),
+            getPositionRange(false),
+            getPositionTicks(selectedVault.name as PoolName),
+            getCurrentTick(selectedVault.name as PoolName),
+          ]);
 
-          const ticks = await getPositionTicks(selectedVault.name as PoolName);
-          if (ticks.length >= 2) {
-            const numericTicks = ticks.map(Number);
-            setTickLower(Math.min(...numericTicks));
-            setTickUpper(Math.max(...numericTicks));
-          }
+        const cetusPoolPrice = cetusPoolPriceArray.get(
+          selectedVault.name as PoolName,
+        );
+        const positionRange = positionRangeArray.get(
+          selectedVault.name as PoolName,
+        );
 
-          const currentTick = await getCurrentTick(
-            selectedVault.name as PoolName,
-          );
-          setCurrentTick(Number(currentTick));
-
-          // console.log("TICKS--..", ticks);
-          // console.log("currentTick--..", currentTick);
-          // console.log("cetusPoolPrice", cetusPoolPrice);
-          // console.log("position range", positionRange);
-
-          if (
-            positionRange !== undefined &&
-            cetusPoolPrice !== undefined &&
-            ((selectedVault.name1.toUpperCase() === "WUSDC" &&
-              selectedVault.name2.toUpperCase() === "SUI") ||
-              (selectedVault.name1.toUpperCase() === "WUSDC" &&
-                selectedVault.name2.toUpperCase() === "WBTC") ||
-              (selectedVault.name1.toUpperCase() === "USDC" &&
-                selectedVault.name2.toUpperCase() === "SUI") ||
-              (selectedVault.name1.toUpperCase() === "USDC" &&
-                selectedVault.name2.toUpperCase() === "USDT") ||
-              (selectedVault.name1.toUpperCase() === "USDC" &&
-                selectedVault.name2.toUpperCase() === "WUSDC") ||
-              (selectedVault.name1.toUpperCase() === "BUCK" &&
-                selectedVault.name2.toUpperCase() === "SUI") ||
-              (selectedVault.name1.toUpperCase() === "USDC" &&
-                selectedVault.name2.toUpperCase() === "ETH") ||
-              (selectedVault.name1.toUpperCase() === "FUD" &&
-                selectedVault.name2.toUpperCase() === "SUI"))
-          ) {
-            const minPrice = (1 / parseFloat(positionRange.upperPrice)).toFixed(
-              5,
-            );
-            setPriceLower(minPrice);
-            const maxPrice = (1 / parseFloat(positionRange.lowerPrice)).toFixed(
-              5,
-            );
-            setPriceUpper(maxPrice);
-            const currentPrice = (1 / parseFloat(cetusPoolPrice)).toFixed(5);
-            setCurrentPrice(currentPrice);
-          } else if (
-            positionRange !== undefined &&
-            cetusPoolPrice !== undefined
-          ) {
-            const minPrice = parseFloat(positionRange.lowerPrice).toFixed(5);
-            setPriceLower(minPrice);
-            const maxPrice = parseFloat(positionRange.upperPrice).toFixed(5);
-            setPriceUpper(maxPrice);
-            const currentPrice = parseFloat(cetusPoolPrice).toFixed(5);
-            setCurrentPrice(currentPrice);
-          }
-          setIsLoading(false);
-        } catch (error) {
-          console.error("Error fetching Cetus pool price:", error);
+        if (ticks.length >= 2) {
+          const numericTicks = ticks.map(Number);
+          setTickLower(Math.min(...numericTicks));
+          setTickUpper(Math.max(...numericTicks));
         }
-        const coinName1 =
-          (selectedVault.name1.toUpperCase() === "WUSDC" &&
-            selectedVault.name2.toUpperCase() === "SUI") ||
-          (selectedVault.name1.toUpperCase() === "WUSDC" &&
-            selectedVault.name2.toUpperCase() === "WBTC") ||
-          (selectedVault.name1.toUpperCase() === "USDC" &&
-            selectedVault.name2.toUpperCase() === "SUI") ||
-          (selectedVault.name1.toUpperCase() === "USDC" &&
-            selectedVault.name2.toUpperCase() === "USDT") ||
-          (selectedVault.name1.toUpperCase() === "USDC" &&
-            selectedVault.name2.toUpperCase() === "WUSDC") ||
-          (selectedVault.name1.toUpperCase() === "BUCK" &&
-            selectedVault.name2.toUpperCase() === "SUI") ||
-          (selectedVault.name1.toUpperCase() === "USDC" &&
-            selectedVault.name2.toUpperCase() === "ETH")
-            ? selectedVault.name2
-            : selectedVault.name1;
+
+        setCurrentTick(Number(currentTick));
+
+        if (positionRange && cetusPoolPrice) {
+          const isSpecialPair = isSpecialPairCombination(
+            selectedVault.name1,
+            selectedVault.name2,
+          );
+          const minPrice = isSpecialPair
+            ? (1 / parseFloat(positionRange.upperPrice)).toFixed(5)
+            : parseFloat(positionRange.lowerPrice).toFixed(5);
+          const maxPrice = isSpecialPair
+            ? (1 / parseFloat(positionRange.lowerPrice)).toFixed(5)
+            : parseFloat(positionRange.upperPrice).toFixed(5);
+          const currentPrice = isSpecialPair
+            ? (1 / parseFloat(cetusPoolPrice)).toFixed(5)
+            : parseFloat(cetusPoolPrice).toFixed(5);
+
+          setPriceLower(minPrice);
+          setPriceUpper(maxPrice);
+          setCurrentPrice(currentPrice);
+        }
+
+        const [coinName1, coinName2] = determineCoinNames(selectedVault);
         setCoinName1(coinName1);
-        const coinName2 =
-          (selectedVault.name1.toUpperCase() === "WUSDC" &&
-            selectedVault.name2.toUpperCase() === "SUI") ||
-          (selectedVault.name1.toUpperCase() === "WUSDC" &&
-            selectedVault.name2.toUpperCase() === "WBTC") ||
-          (selectedVault.name1.toUpperCase() === "USDC" &&
-            selectedVault.name2.toUpperCase() === "SUI") ||
-          (selectedVault.name1.toUpperCase() === "USDC" &&
-            selectedVault.name2.toUpperCase() === "USDT") ||
-          (selectedVault.name1.toUpperCase() === "USDC" &&
-            selectedVault.name2.toUpperCase() === "WUSDC") ||
-          (selectedVault.name1.toUpperCase() === "BUCK" &&
-            selectedVault.name2.toUpperCase() === "SUI") ||
-          (selectedVault.name1.toUpperCase() === "USDC" &&
-            selectedVault.name2.toUpperCase() === "ETH")
-            ? selectedVault.name1
-            : selectedVault.name2;
         setCoinName2(coinName2);
+
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching Cetus pool price:", error);
+        setIsLoading(false);
       }
     };
-    fetchCetusPoolPrice();
-  }, [selectedVault]);
-  // console.log("CURRENT PRICE--->>", currentPrice);
 
+    const fetchLPBreakdownDetails = async () => {
+      if (!selectedVault) return;
+
+      try {
+        const lpDetailsInAlphaProtocol = await alphaLpBreakdown(
+          selectedVault.name as PoolName,
+          false,
+        );
+        setAlphaLpBreakdownDetails(lpDetailsInAlphaProtocol);
+      } catch (error) {
+        console.error("Error fetching LP Breakdown details:", error);
+      }
+    };
+
+    fetchCetusPoolPrice();
+    fetchLPBreakdownDetails();
+  }, [selectedVault]);
+
+  useEffect(() => {
+    if (
+      selectedVault?.name1 &&
+      selectedVault?.name2 &&
+      alphaLpBreakdownDetails
+    ) {
+      try {
+        const token1Decimals =
+          SuiTokensList[selectedVault.name1.toLowerCase()]?.decimals || 0;
+        const token2Decimals =
+          SuiTokensList[selectedVault.name2.toLowerCase()]?.decimals || 0;
+
+        const token1Count =
+          alphaLpBreakdownDetails.coinAInUsd / 10 ** token1Decimals;
+        const token2Count =
+          alphaLpBreakdownDetails.coinBInUsd / 10 ** token2Decimals;
+        const totalTokens = token1Count + token2Count;
+
+        if (totalTokens > 0) {
+          const token1Share = (token1Count / totalTokens).toFixed(2);
+          const token2Share = (token2Count / totalTokens).toFixed(2);
+
+          setTokenShareInPool([token1Share, token2Share]);
+          console.log("Token1 Share:", token1Share);
+          console.log("Token2 Share:", token2Share);
+          console.log("Token1 Count:", token1Count);
+          console.log("Token2 Count:", token2Count);
+        }
+      } catch (error) {
+        console.error("Error calculating token shares:", error);
+      }
+    }
+  }, [selectedVault, alphaLpBreakdownDetails]);
+
+  /**
+   * Determines if the vault pair is part of the special pool combinations.
+   */
+  const isSpecialPairCombination = (name1: string, name2: string) => {
+    const upperName1 = name1.toUpperCase();
+    const upperName2 = name2.toUpperCase();
+    const specialPairs = [
+      ["WUSDC", "SUI"],
+      ["WUSDC", "WBTC"],
+      ["USDC", "SUI"],
+      ["USDC", "USDT"],
+      ["USDC", "WUSDC"],
+      ["BUCK", "SUI"],
+      ["USDC", "ETH"],
+      ["FUD", "SUI"],
+    ];
+    return specialPairs.some(
+      ([a, b]) =>
+        (upperName1 === a && upperName2 === b) ||
+        (upperName1 === b && upperName2 === a),
+    );
+  };
+
+  /**
+   * Determines the coin names for vault based on certain conditions.
+   */
+  const determineCoinNames = (selectedVault: {
+    name1: string;
+    name2: string;
+  }): [string, string] => {
+    const upperName1 = selectedVault.name1.toUpperCase();
+    const upperName2 = selectedVault.name2.toUpperCase();
+
+    const isFirstCoinPrimary = [
+      ["WUSDC", "SUI"],
+      ["WUSDC", "WBTC"],
+      ["USDC", "SUI"],
+      ["USDC", "USDT"],
+      ["USDC", "WUSDC"],
+      ["BUCK", "SUI"],
+      ["USDC", "ETH"],
+    ].some(([a, b]) => upperName1 === a && upperName2 === b);
+
+    if (isFirstCoinPrimary) {
+      return [selectedVault.name2, selectedVault.name1];
+    } else {
+      return [selectedVault.name1, selectedVault.name2];
+    }
+  };
+  console.log("tokenShareInPool", tokenShareInPool);
   return (
     <>
       <div className="flex flex-col w-[33.48vw] h-[40.88vw] bg-white rounded-[2.08vw] p-[2.08vw]">
@@ -333,7 +386,8 @@ const Rebalance = (props: RebalanceProps) => {
                 Current Ratio: &nbsp;
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                -
+                {(parseFloat(tokenShareInPool[0]) * 100).toFixed(2)}% -{" "}
+                {(parseFloat(tokenShareInPool[1]) * 100).toFixed(2)}%
               </p>
             </div>
             <div className="flex justify-between mb-[0.36vw]">
