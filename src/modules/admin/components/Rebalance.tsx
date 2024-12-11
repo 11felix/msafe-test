@@ -271,90 +271,80 @@ const Rebalance = (props: RebalanceProps) => {
         </div>
         <div className="flex justify-between mb-[1.56vw]">
           <div className="flex flex-col">
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center mb-[0.36vw]">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Current Price:&nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : currentPrice !== "" ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                  {currentPrice} {coinName2} PER {coinName1}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+                  {currentPrice
+                    ? `${currentPrice} ${coinName2}/${coinName1}`
+                    : "-"}
+                </div>
               )}
             </div>
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center mb-[0.36vw]">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Price Lower:&nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : priceLower !== "" ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                  {priceLower}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+                  {priceLower ? priceLower : "-"}
+                </div>
               )}
             </div>
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Price Upper:&nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : priceUpper !== "" ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                  {priceUpper}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+                  {priceUpper ? priceUpper : "-"}
+                </div>
               )}
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center mb-[0.36vw]">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Current Tick:&nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : currentTick ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium ">
-                  {currentTick}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium ">
+                  {currentTick ? currentTick : "-"}
+                </div>
               )}
             </div>
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center mb-[0.36vw]">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Tick Lower: &nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : tickLower ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                  {tickLower}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+                  {tickLower ? tickLower : "-"}
+                </div>
               )}
             </div>
-            <div className="flex mb-[0.36vw] items-center">
-              <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+            <div className="flex items-center">
+              <div className="whitespace-nowrap text-[0.98vw] text-[#222F3B] font-noto font-medium">
                 Tick Upper: &nbsp;
               </div>
               {isLoading ? (
                 <Spinner className="ml-2" />
-              ) : tickUpper ? (
-                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                  {tickUpper}
-                </div>
               ) : (
-                "-"
+                <div className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
+                  {tickUpper ? tickUpper : "-"}
+                </div>
               )}
             </div>
           </div>
@@ -386,7 +376,7 @@ const Rebalance = (props: RebalanceProps) => {
             </div>
           </div>
           <button
-            className="disabled w-full h-[3.541vw] text-[1.25vw] text-center items-center rounded-[0.677vw] bg-[#3D5060] mt-[1.5vw] text-white font-poppinsbold mb-[1.04vw]"
+            className="cursor-not-allowed w-full h-[3.541vw] text-[1.25vw] text-center items-center rounded-[0.677vw] bg-[#3D5060] mt-[1.5vw] text-white font-poppinsbold mb-[1.04vw]"
             disabled={true}
             onClick={handleClickRebalance}
           >
@@ -398,8 +388,10 @@ const Rebalance = (props: RebalanceProps) => {
                 Current Ratio: &nbsp;
               </p>
               <p className="text-[0.98vw] text-[#222F3B] font-noto font-medium">
-                {(parseFloat(tokenShareInPool[0]) * 100).toFixed(2)}% -{" "}
-                {(parseFloat(tokenShareInPool[1]) * 100).toFixed(2)}%
+                {parseFloat(tokenShareInPool[0]) * 100}%&nbsp;
+                {selectedVault?.name1}&nbsp;|&nbsp;
+                {parseFloat(tokenShareInPool[1]) * 100}%&nbsp;
+                {selectedVault?.name2}
               </p>
             </div>
             <div className="flex justify-between mb-[0.36vw]">
