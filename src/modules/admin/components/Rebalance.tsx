@@ -5,6 +5,7 @@ import {
   getPositionRange,
   PoolName,
   alphaLpBreakdown,
+  priceToTickIndexBoth,
 } from "sui-alpha-sdk";
 import {
   getCurrentTick,
@@ -86,7 +87,6 @@ const Rebalance = (props: RebalanceProps) => {
     setSelectedVault(vault);
     setIsLoading(true);
   };
-  console.log("selectedVault?.name", selectedVault?.name);
 
   useEffect(() => {
     const fetchCetusPoolPrice = async () => {
@@ -188,10 +188,6 @@ const Rebalance = (props: RebalanceProps) => {
           const token2Share = (token2Count / totalTokens).toFixed(2);
 
           setTokenShareInPool([token1Share, token2Share]);
-          console.log("Token1 Share:", token1Share);
-          console.log("Token2 Share:", token2Share);
-          console.log("Token1 Count:", token1Count);
-          console.log("Token2 Count:", token2Count);
         }
       } catch (error) {
         console.error("Error calculating token shares:", error);
@@ -199,9 +195,25 @@ const Rebalance = (props: RebalanceProps) => {
     }
   }, [selectedVault, alphaLpBreakdownDetails]);
 
-  /**
-   * Determines if the vault pair is part of the special pool combinations.
-   */
+  const rebalanceLowerTickAndUpperTick = async () => {
+    if (!selectedVault) return;
+    try {
+      await priceToTickIndexBoth(
+        selectedVault.name as PoolName,
+        Number(lowerTickToPrice),
+        Number(upperTickToPrice),
+        SuiTokensList[selectedVault.name1.toLowerCase()]?.decimals || 0,
+        SuiTokensList[selectedVault.name2.toLowerCase()]?.decimals || 0,
+      );
+    } catch (error) {
+      console.error("Error in rebalancing:", error);
+    }
+  };
+
+  const handleClickRebalance = () => {
+    rebalanceLowerTickAndUpperTick();
+  };
+
   const isSpecialPairCombination = (name1: string, name2: string) => {
     const upperName1 = name1.toUpperCase();
     const upperName2 = name2.toUpperCase();
@@ -222,9 +234,6 @@ const Rebalance = (props: RebalanceProps) => {
     );
   };
 
-  /**
-   * Determines the coin names for vault based on certain conditions.
-   */
   const determineCoinNames = (selectedVault: {
     name1: string;
     name2: string;
@@ -248,7 +257,6 @@ const Rebalance = (props: RebalanceProps) => {
       return [selectedVault.name1, selectedVault.name2];
     }
   };
-  console.log("tokenShareInPool", tokenShareInPool);
   return (
     <>
       <div className="flex flex-col w-[33.48vw] h-[40.88vw] bg-white rounded-[2.08vw] p-[2.08vw]">
@@ -377,7 +385,11 @@ const Rebalance = (props: RebalanceProps) => {
               />
             </div>
           </div>
-          <button className="w-full h-[3.541vw] text-[1.25vw] text-center items-center rounded-[0.677vw] bg-[#3D5060] mt-[1.5vw] text-white font-poppinsbold mb-[1.04vw]">
+          <button
+            className="disabled w-full h-[3.541vw] text-[1.25vw] text-center items-center rounded-[0.677vw] bg-[#3D5060] mt-[1.5vw] text-white font-poppinsbold mb-[1.04vw]"
+            disabled={true}
+            onClick={handleClickRebalance}
+          >
             Rebalance
           </button>
           <div className="flex flex-col">
